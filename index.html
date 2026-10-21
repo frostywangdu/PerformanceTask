@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIL Performance Task - SDG 14</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; }
+body {
+font-family: 'Inter', sans-serif;
+min-height: 100vh;
+color: #e2e8f0;
+position: relative;
+overflow-x: hidden;
+background: #020617;
+}
+body::before {
+content: '';
+position: fixed;
+inset: 0;
+background:
+radial-gradient(ellipse 120% 80% at 10% 10%, rgba(14, 80, 140, 0.35) 0%, transparent 55%),
+radial-gradient(ellipse 100% 90% at 90% 20%, rgba(60, 20, 120, 0.3) 0%, transparent 50%),
+radial-gradient(ellipse 140% 100% at 50% 50%, rgba(10, 70, 110, 0.4) 0%, transparent 60%),
+radial-gradient(ellipse 90% 70% at 80% 80%, rgba(20, 50, 100, 0.45) 0%, transparent 55%),
+radial-gradient(ellipse 110% 80% at 20% 85%, rgba(30, 60, 130, 0.35) 0%, transparent 60%),
+radial-gradient(ellipse 80% 60% at 60% 15%, rgba(80, 40, 160, 0.2) 0%, transparent 50%),
+radial-gradient(ellipse 70% 70% at 30% 40%, rgba(15, 90, 130, 0.25) 0%, transparent 55%),
+radial-gradient(ellipse 60% 50% at 75% 55%, rgba(100, 60, 180, 0.15) 0%, transparent 50%),
+radial-gradient(ellipse 50% 60% at 45% 75%, rgba(10, 60, 100, 0.3) 0%, transparent 55%);
+pointer-events: none;
+z-index: 0;
+}
+.aurora-container { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.aurora-band { position: absolute; left: -20%; width: 140%; filter: blur(80px); opacity: 0.4; mix-blend-mode: screen; }
+.aurora-band-1 { top: 5%; height: 45%; background: linear-gradient(90deg, transparent 0%, rgba(20, 184, 166, 0.4) 10%, rgba(45, 212, 191, 0.55) 25%, rgba(94, 234, 212, 0.7) 40%, rgba(45, 212, 191, 0.55) 55%, rgba(20, 184, 166, 0.4) 70%, transparent 100%); animation: auroraWave1 20s infinite ease-in-out; }
+.aurora-band-2 { top: 18%; height: 40%; background: linear-gradient(90deg, transparent 0%, rgba(6, 182, 212, 0.35) 15%, rgba(34, 211, 238, 0.5) 30%, rgba(103, 232, 249, 0.65) 45%, rgba(34, 211, 238, 0.5) 60%, rgba(6, 182, 212, 0.35) 75%, transparent 100%); animation: auroraWave2 26s infinite ease-in-out; opacity: 0.35; }
+.aurora-band-3 { top: 30%; height: 38%; background: linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.3) 18%, rgba(96, 165, 250, 0.45) 33%, rgba(147, 197, 253, 0.6) 48%, rgba(96, 165, 250, 0.45) 63%, rgba(59, 130, 246, 0.3) 78%, transparent 100%); animation: auroraWave3 30s infinite ease-in-out; opacity: 0.3; }
+.aurora-band-4 { top: 12%; height: 42%; background: linear-gradient(90deg, transparent 0%, rgba(167, 243, 208, 0.25) 20%, rgba(167, 243, 208, 0.4) 35%, rgba(209, 250, 229, 0.55) 48%, rgba(167, 243, 208, 0.4) 62%, rgba(167, 243, 208, 0.25) 78%, transparent 100%); animation: auroraWave4 24s infinite ease-in-out; opacity: 0.28; }
+.aurora-band-5 { top: 40%; height: 35%; background: linear-gradient(90deg, transparent 0%, rgba(14, 116, 144, 0.4) 18%, rgba(20, 184, 166, 0.55) 33%, rgba(45, 212, 191, 0.7) 48%, rgba(20, 184, 166, 0.55) 63%, rgba(14, 116, 144, 0.4) 78%, transparent 100%); animation: auroraWave5 28s infinite ease-in-out; opacity: 0.32; }
+.aurora-band-6 { top: 24%; height: 36%; background: linear-gradient(90deg, transparent 0%, rgba(109, 40, 217, 0.2) 22%, rgba(139, 92, 246, 0.35) 38%, rgba(167, 139, 250, 0.5) 50%, rgba(139, 92, 246, 0.35) 62%, rgba(109, 40, 217, 0.2) 78%, transparent 100%); animation: auroraWave6 32s infinite ease-in-out; opacity: 0.25; }
+@keyframes auroraWave1 { 0%, 100% { transform: translateX(-5%) translateY(0) skewX(-2deg) scaleY(1); opacity: 0.35; } 25% { transform: translateX(4%) translateY(-6%) skewX(2deg) scaleY(1.1); opacity: 0.5; } 50% { transform: translateX(7%) translateY(-2%) skewX(-1deg) scaleY(0.95); opacity: 0.4; } 75% { transform: translateX(-3%) translateY(-8%) skewX(2deg) scaleY(1.05); opacity: 0.45; } }
+@keyframes auroraWave2 { 0%, 100% { transform: translateX(4%) translateY(0) skewX(1.5deg) scaleY(1); opacity: 0.3; } 33% { transform: translateX(-4%) translateY(-5%) skewX(-2deg) scaleY(1.08); opacity: 0.42; } 66% { transform: translateX(-8%) translateY(3%) skewX(1.5deg) scaleY(0.95); opacity: 0.32; } }
+@keyframes auroraWave3 { 0%, 100% { transform: translateX(-6%) translateY(0) skewX(-1.5deg) scaleY(1); opacity: 0.25; } 50% { transform: translateX(8%) translateY(-10%) skewX(2deg) scaleY(1.1); opacity: 0.38; } }
+@keyframes auroraWave4 { 0%, 100% { transform: translateX(8%) translateY(0) skewX(2deg) scaleY(1); opacity: 0.22; } 50% { transform: translateX(-6%) translateY(-7%) skewX(-1.5deg) scaleY(1.08); opacity: 0.35; } }
+@keyframes auroraWave5 { 0%, 100% { transform: translateX(-2%) translateY(0) skewX(-1deg) scaleY(1); opacity: 0.28; } 40% { transform: translateX(5%) translateY(-8%) skewX(1.5deg) scaleY(1.06); opacity: 0.4; } 80% { transform: translateX(-5%) translateY(-4%) skewX(-1.5deg) scaleY(0.95); opacity: 0.3; } }
+@keyframes auroraWave6 { 0%, 100% { transform: translateX(-8%) translateY(0) skewX(-1.5deg) scaleY(1); opacity: 0.2; } 50% { transform: translateX(6%) translateY(-12%) skewX(1.5deg) scaleY(1.12); opacity: 0.32; } }
+.aurora-glow { position: absolute; top: 0; left: 0; width: 100%; height: 55%; background: radial-gradient(ellipse at 50% 0%, rgba(45, 212, 191, 0.1) 0%, transparent 60%); pointer-events: none; animation: glowPulse 12s infinite ease-in-out; }
+@keyframes glowPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+.ambient-orb { position: fixed; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: 0; opacity: 0.4; }
+.orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(14, 165, 233, 0.35) 0%, transparent 70%); top: -15%; left: -15%; animation: orbDrift1 30s infinite ease-in-out; }
+.orb-2 { width: 700px; height: 700px; background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%); bottom: -20%; right: -15%; animation: orbDrift2 35s infinite ease-in-out; }
+.orb-3 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, transparent 70%); top: 45%; left: 55%; animation: orbDrift3 40s infinite ease-in-out; }
+.orb-4 { width: 550px; height: 550px; background: radial-gradient(circle, rgba(30, 58, 138, 0.4) 0%, transparent 70%); top: 65%; left: -10%; animation: orbDrift4 32s infinite ease-in-out; }
+.orb-5 { width: 450px; height: 450px; background: radial-gradient(circle, rgba(88, 28, 135, 0.2) 0%, transparent 70%); top: 25%; right: 25%; animation: orbDrift5 38s infinite ease-in-out; }
+.orb-6 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(45, 212, 191, 0.25) 0%, transparent 70%); top: 10%; left: 40%; animation: orbDrift6 28s infinite ease-in-out; }
+@keyframes orbDrift1 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(100px, 80px) scale(1.2); } }
+@keyframes orbDrift2 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-120px, -100px) scale(1.15); } }
+@keyframes orbDrift3 { 0%, 100% { transform: translate(-50%, 0) scale(1); } 50% { transform: translate(-50%, -120px) scale(1.25); } }
+@keyframes orbDrift4 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(140px, -80px) scale(1.18); } }
+@keyframes orbDrift5 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-100px, 120px) scale(0.9); } }
+@keyframes orbDrift6 { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(60px, 90px) scale(1.1); } }
+.bio-particle { position: fixed; border-radius: 50%; pointer-events: none; animation: bioFloat 18s infinite ease-in-out; }
+.bio-particle.cyan { background: radial-gradient(circle, rgba(34, 211, 238, 0.9) 0%, rgba(34, 211, 238, 0.4) 40%, transparent 70%); box-shadow: 0 0 20px rgba(34, 211, 238, 0.6), 0 0 40px rgba(34, 211, 238, 0.3); }
+.bio-particle.teal { background: radial-gradient(circle, rgba(20, 184, 166, 0.9) 0%, rgba(20, 184, 166, 0.4) 40%, transparent 70%); box-shadow: 0 0 20px rgba(20, 184, 166, 0.6), 0 0 40px rgba(20, 184, 166, 0.3); }
+.bio-particle.purple { background: radial-gradient(circle, rgba(167, 139, 250, 0.9) 0%, rgba(167, 139, 250, 0.4) 40%, transparent 70%); box-shadow: 0 0 20px rgba(167, 139, 250, 0.6), 0 0 40px rgba(167, 139, 250, 0.3); }
+.bio-particle.blue { background: radial-gradient(circle, rgba(56, 189, 248, 0.9) 0%, rgba(56, 189, 248, 0.4) 40%, transparent 70%); box-shadow: 0 0 20px rgba(56, 189, 248, 0.6), 0 0 40px rgba(56, 189, 248, 0.3); }
+@keyframes bioFloat { 0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.4; } 25% { transform: translateY(-60px) translateX(20px) scale(1.2); opacity: 0.8; } 50% { transform: translateY(-120px) translateX(-15px) scale(0.9); opacity: 0.5; } 75% { transform: translateY(-40px) translateX(25px) scale(1.1); opacity: 0.7; } }
+body::after { content: ''; position: fixed; inset: 0; opacity: 0.03; pointer-events: none; z-index: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 250px 250px; }
+.volumetric-haze { position: fixed; inset: 0; pointer-events: none; z-index: 0; background: linear-gradient(180deg, rgba(14, 165, 233, 0.03) 0%, rgba(14, 165, 233, 0.05) 30%, rgba(6, 182, 212, 0.04) 60%, rgba(2, 6, 23, 0.3) 100%); animation: hazeBreath 12s infinite ease-in-out; }
+@keyframes hazeBreath { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } }
+.top-nav { position: sticky; top: 0; z-index: 50; background: rgba(2, 6, 23, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(34, 211, 238, 0.12); }
+.nav-inner { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+.logo { display: flex; align-items: center; gap: 0.75rem; }
+.logo-icon { width: 38px; height: 38px; background: radial-gradient(circle, rgba(34, 211, 238, 0.3) 0%, rgba(6, 182, 212, 0.1) 100%); border: 1px solid rgba(34, 211, 238, 0.3); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #22d3ee; font-size: 1rem; box-shadow: 0 0 20px rgba(34, 211, 238, 0.3); }
+.logo-text { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.15rem; color: #e2e8f0; letter-spacing: 0.02em; }
+.nav-date { font-size: 0.75rem; color: rgba(148, 163, 184, 0.8); font-weight: 400; display: flex; align-items: center; gap: 0.4rem; letter-spacing: 0.05em; }
+.tabs-wrapper { background: rgba(2, 6, 23, 0.65); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(34, 211, 238, 0.08); position: sticky; top: 65px; z-index: 40; }
+.tabs-inner { max-width: 1400px; margin: 0 auto; padding: 0 2rem; display: flex; gap: 0.25rem; overflow-x: auto; scrollbar-width: none; }
+.tabs-inner::-webkit-scrollbar { display: none; }
+.tab-btn { display: flex; align-items: center; gap: 0.5rem; padding: 1rem 1.25rem; border: none; background: transparent; color: rgba(148, 163, 184, 0.7); font-size: 0.85rem; font-weight: 400; font-family: inherit; cursor: pointer; white-space: nowrap; transition: all 0.3s ease; border-bottom: 2px solid transparent; letter-spacing: 0.02em; }
+.tab-btn:hover { color: #22d3ee; background: rgba(34, 211, 238, 0.03); }
+.tab-btn.active { color: #22d3ee; border-bottom-color: #22d3ee; background: rgba(34, 211, 238, 0.05); text-shadow: 0 0 10px rgba(34, 211, 238, 0.5); }
+.tab-btn i { font-size: 0.85rem; }
+main { position: relative; z-index: 10; max-width: 1400px; margin: 0 auto; padding: 2.5rem 2rem; }
+.hydrilla-logo { display: inline-block; vertical-align: middle; }
+.hydrilla-logo svg { display: block; }
+
+.flowchart-container {
+background: rgba(2, 6, 23, 0.5);
+border: 1px solid rgba(139, 92, 246, 0.2);
+border-radius: 16px;
+padding: 2.5rem 2rem;
+margin: 1.5rem 0 2rem;
+position: relative;
+}
+.flowchart-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+grid-template-rows: auto auto auto;
+gap: 1.5rem 3rem;
+align-items: center;
+max-width: 900px;
+margin: 0 auto;
+position: relative;
+}
+.flow-box {
+background: rgba(15, 23, 42, 0.9);
+border: 2px solid rgba(139, 92, 246, 0.4);
+border-radius: 10px;
+padding: 1.25rem 1rem;
+text-align: center;
+font-family: 'Cormorant Garamond', serif;
+font-size: 1rem;
+font-weight: 600;
+color: #f1f5f9;
+line-height: 1.4;
+box-shadow: 0 4px 20px rgba(139, 92, 246, 0.15);
+transition: all 0.3s ease;
+position: relative;
+z-index: 2;
+}
+.flow-box:hover {
+border-color: rgba(139, 92, 246, 0.7);
+box-shadow: 0 4px 25px rgba(139, 92, 246, 0.3);
+transform: translateY(-2px);
+}
+.flow-box-wide {
+grid-column: 1 / -1;
+}
+.flow-arrow-right {
+position: absolute;
+top: 50%;
+right: -3rem;
+transform: translateY(-50%);
+color: rgba(139, 92, 246, 0.8);
+font-size: 1.5rem;
+z-index: 1;
+}
+.flow-arrow-down {
+position: absolute;
+bottom: -2rem;
+left: 50%;
+transform: translateX(-50%);
+color: rgba(139, 92, 246, 0.8);
+font-size: 1.5rem;
+z-index: 1;
+}
+.flow-arrow-left {
+position: absolute;
+top: 50%;
+left: -3rem;
+transform: translateY(-50%);
+color: rgba(139, 92, 246, 0.8);
+font-size: 1.5rem;
+z-index: 1;
+}
+.flowchart-caption {
+text-align: center;
+margin-top: 1.5rem;
+font-family: 'Cormorant Garamond', serif;
+font-size: 1.1rem;
+font-weight: 600;
+color: #f1f5f9;
+font-style: italic;
+}
+
+.report-container {
+background: rgba(15, 23, 42, 0.75);
+backdrop-filter: blur(20px);
+border-radius: 24px;
+padding: 3.5rem;
+border: 1px solid rgba(139, 92, 246, 0.2);
+box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+margin-bottom: 2rem;
+position: relative;
+overflow: hidden;
+}
+.report-container::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+height: 4px;
+background: linear-gradient(90deg, #8b5cf6, #06b6d4, #8b5cf6);
+}
+.report-header {
+text-align: center;
+margin-bottom: 3rem;
+padding-bottom: 2rem;
+border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+}
+.report-title {
+font-family: 'Cormorant Garamond', serif;
+font-size: 2.5rem;
+font-weight: 700;
+color: #f1f5f9;
+margin-bottom: 1rem;
+letter-spacing: -0.01em;
+}
+.report-subtitle {
+font-size: 1.1rem;
+color: rgba(148, 163, 184, 0.9);
+font-weight: 300;
+margin-bottom: 1.5rem;
+}
+.report-meta {
+display: flex;
+justify-content: center;
+gap: 2rem;
+flex-wrap: wrap;
+font-size: 0.85rem;
+color: rgba(148, 163, 184, 0.7);
+}
+.report-meta-item {
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+.report-meta-item i {
+color: #8b5cf6;
+}
+.report-section {
+margin-bottom: 2.5rem;
+padding-bottom: 2rem;
+border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+}
+.report-section:last-child {
+border-bottom: none;
+margin-bottom: 0;
+padding-bottom: 0;
+}
+.report-section-header {
+display: flex;
+align-items: center;
+gap: 1rem;
+margin-bottom: 1.5rem;
+padding-bottom: 0.75rem;
+border-bottom: 2px solid rgba(139, 92, 246, 0.3);
+}
+.report-section-number {
+width: 40px;
+height: 40px;
+border-radius: 10px;
+background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: 'Cormorant Garamond', serif;
+font-size: 1.2rem;
+font-weight: 700;
+color: white;
+flex-shrink: 0;
+box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+}
+.report-section-title {
+font-family: 'Cormorant Garamond', serif;
+font-size: 1.8rem;
+font-weight: 600;
+color: #f1f5f9;
+letter-spacing: -0.01em;
+}
+.report-subsection {
+margin-top: 1.5rem;
+margin-bottom: 1rem;
+}
+.report-subsection-title {
+font-family: 'Cormorant Garamond', serif;
+font-size: 1.4rem;
+font-weight: 600;
+color: #e2e8f0;
+margin-bottom: 1rem;
+padding-left: 1rem;
+border-left: 3px solid #8b5cf6;
+}
+.report-text {
+font-size: 1rem;
+line-height: 1.8;
+color: rgba(203, 213, 225, 0.9);
+font-weight: 300;
+margin-bottom: 1rem;
+}
+.report-text strong {
+color: #f1f5f9;
+font-weight: 600;
+}
+.report-text em {
+color: #8b5cf6;
+font-style: italic;
+}
+.report-placeholder-dark {
+background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 50%, rgba(15, 23, 42, 0.95) 100%);
+border: 1px dashed rgba(139, 92, 246, 0.4);
+border-radius: 12px;
+padding: 2.5rem 2rem;
+text-align: center;
+color: rgba(226, 232, 240, 0.95);
+font-style: italic;
+margin: 1rem 0;
+box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.3);
+}
+.report-placeholder-dark i {
+font-size: 2rem;
+margin-bottom: 0.75rem;
+color: rgba(139, 92, 246, 0.7);
+display: block;
+}
+.report-placeholder-dark p {
+font-family: 'Cormorant Garamond', serif;
+font-size: 1.05rem;
+line-height: 1.7;
+font-style: normal;
+color: #ffffff;
+}
+.report-placeholder {
+background: rgba(139, 92, 246, 0.05);
+border: 1px dashed rgba(139, 92, 246, 0.3);
+border-radius: 12px;
+padding: 2rem;
+text-align: center;
+color: rgba(148, 163, 184, 0.6);
+font-style: italic;
+margin: 1rem 0;
+}
+.report-placeholder i {
+font-size: 2rem;
+margin-bottom: 0.5rem;
+color: rgba(139, 92, 246, 0.4);
+display: block;
+}
+.report-list {
+list-style: none;
+padding: 0;
+margin: 1rem 0;
+}
+.report-list li {
+padding: 0.75rem 1rem;
+background: rgba(139, 92, 246, 0.05);
+border-left: 3px solid #8b5cf6;
+border-radius: 0 8px 8px 0;
+margin-bottom: 0.5rem;
+font-size: 0.95rem;
+color: rgba(203, 213, 225, 0.9);
+transition: all 0.3s ease;
+}
+.report-list li:hover {
+background: rgba(139, 92, 246, 0.1);
+transform: translateX(4px);
+}
+.report-list li i {
+color: #8b5cf6;
+margin-right: 0.5rem;
+}
+.report-equation {
+background: rgba(15, 23, 42, 0.6);
+border: 1px solid rgba(139, 92, 246, 0.2);
+border-radius: 12px;
+padding: 1.5rem;
+margin: 1.5rem 0;
+text-align: center;
+font-family: 'Cormorant Garamond', serif;
+font-size: 1.3rem;
+color: #e9d5ff;
+letter-spacing: 0.05em;
+}
+.report-figure {
+background: rgba(15, 23, 42, 0.6);
+border: 1px solid rgba(139, 92, 246, 0.2);
+border-radius: 12px;
+padding: 2rem;
+margin: 1.5rem 0;
+text-align: center;
+}
+.report-figure-placeholder {
+width: 100%;
+height: 200px;
+background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));
+border: 2px dashed rgba(139, 92, 246, 0.3);
+border-radius: 8px;
+display: flex;
+align-items: center;
+justify-content: center;
+color: rgba(148, 163, 184, 0.6);
+font-size: 0.9rem;
+margin-bottom: 1rem;
+}
+.report-figure-caption {
+font-size: 0.85rem;
+color: rgba(148, 163, 184, 0.7);
+font-style: italic;
+}
+.report-table-wrapper {
+overflow-x: auto;
+margin: 1.5rem 0;
+border-radius: 12px;
+border: 1px solid rgba(139, 92, 246, 0.2);
+}
+.report-table {
+width: 100%;
+border-collapse: collapse;
+background: rgba(15, 23, 42, 0.6);
+font-size: 0.9rem;
+}
+.report-table th {
+background: rgba(139, 92, 246, 0.25);
+padding: 1rem;
+text-align: center;
+font-weight: 600;
+color: #f1f5f9;
+border-bottom: 2px solid rgba(139, 92, 246, 0.4);
+font-family: 'Cormorant Garamond', serif;
+font-size: 1rem;
+}
+.report-table td {
+padding: 0.85rem 1rem;
+border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+color: rgba(203, 213, 225, 0.9);
+text-align: center;
+}
+.report-table tr:last-child td {
+border-bottom: none;
+}
+.report-table tr:hover td {
+background: rgba(139, 92, 246, 0.08);
+}
+.report-reference {
+padding: 1rem 1.5rem;
+background: rgba(139, 92, 246, 0.05);
+border-left: 3px solid #8b5cf6;
+border-radius: 0 8px 8px 0;
+margin-bottom: 0.75rem;
+font-size: 0.9rem;
+color: rgba(203, 213, 225, 0.85);
+line-height: 1.6;
+word-break: break-word;
+}
+.report-reference strong {
+color: #f1f5f9;
+}
+.report-reference em {
+color: rgba(148, 163, 184, 0.9);
+font-style: italic;
+}
+.report-reference a {
+color: #8b5cf6;
+text-decoration: none;
+word-break: break-all;
+}
+.report-reference a:hover {
+text-decoration: underline;
+color: #a78bfa;
+}
+
+.video-hero { position: relative; height: 70vh; min-height: 500px; max-height: 700px; border-radius: 24px; overflow: hidden; margin-bottom: 2rem; border: 1px solid rgba(34, 211, 238, 0.25); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6); }
+.video-gif-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; animation: kenBurns 20s ease-in-out infinite alternate; }
+@keyframes kenBurns { 0% { transform: scale(1) translate(0, 0); } 50% { transform: scale(1.08) translate(-1%, -1%); } 100% { transform: scale(1.12) translate(1%, 1%); } }
+.video-hero-fallback { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 40%, rgba(14, 116, 144, 0.6) 0%, transparent 50%), radial-gradient(ellipse at 70% 60%, rgba(6, 95, 110, 0.8) 0%, transparent 60%), linear-gradient(180deg, #0c4a6e 0%, #082f49 100%); z-index: 0; }
+.video-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(2, 6, 23, 0.5) 0%, rgba(2, 6, 23, 0.25) 40%, rgba(2, 6, 23, 0.7) 100%), radial-gradient(ellipse at center, transparent 0%, rgba(2, 6, 23, 0.6) 100%); z-index: 2; }
+.video-grain { position: absolute; inset: 0; opacity: 0.06; z-index: 3; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation: grainShift 0.5s steps(3) infinite; }
+@keyframes grainShift { 0% { transform: translate(0, 0); } 33% { transform: translate(-2px, 1px); } 66% { transform: translate(1px, -1px); } 100% { transform: translate(0, 0); } }
+.video-hero-content { position: relative; z-index: 4; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 3rem; }
+.opening-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.25rem; background: rgba(34, 211, 238, 0.15); border: 1px solid rgba(34, 211, 238, 0.35); border-radius: 100px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #67e8f9; margin-bottom: 2rem; backdrop-filter: blur(10px); animation: fadeInUp 1s ease-out 0.3s both; }
+.opening-question { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700; font-style: italic; line-height: 1.05; letter-spacing: -0.02em; color: #f1f5f9; margin-bottom: 1.5rem; text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9), 0 0 60px rgba(0, 0, 0, 0.6); animation: fadeInUp 1s ease-out 0.6s both; }
+.opening-divider { width: 100px; height: 2px; background: linear-gradient(90deg, transparent, #22d3ee, transparent); margin: 0 auto; animation: fadeInUp 1s ease-out 0.9s both; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.video-indicator { position: absolute; bottom: 1.5rem; right: 1.5rem; z-index: 5; display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.9rem; background: rgba(2, 6, 23, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(34, 211, 238, 0.3); border-radius: 100px; font-size: 0.7rem; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.1em; text-transform: uppercase; }
+.video-indicator .pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: #22d3ee; animation: pulseDot 2s infinite ease-in-out; }
+@keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } }
+
+.dream-ocean { background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(20, 184, 166, 0.06) 100%); border: 1px solid rgba(45, 212, 191, 0.2); border-radius: 20px; padding: 3rem; margin-bottom: 2rem; position: relative; overflow: hidden; }
+.dream-ocean::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, #2dd4bf, transparent); }
+.dream-ocean::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 50%, rgba(45, 212, 191, 0.08) 0%, transparent 50%); pointer-events: none; }
+.dream-label { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; background: rgba(45, 212, 191, 0.1); border: 1px solid rgba(45, 212, 191, 0.25); border-radius: 100px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #2dd4bf; margin-bottom: 1.5rem; position: relative; z-index: 2; }
+.dream-text { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-style: italic; font-weight: 500; line-height: 1.6; color: rgba(226, 232, 240, 0.95); position: relative; z-index: 2; }
+.dream-text .highlight { color: #2dd4bf; font-weight: 600; font-style: italic; }
+
+.reality-section { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(20px); border-radius: 24px; padding: 3rem; border: 1px solid rgba(34, 211, 238, 0.2); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); margin-bottom: 2rem; position: relative; overflow: hidden; }
+.reality-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, #22d3ee, transparent); }
+.reality-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(34, 211, 238, 0.2); }
+.reality-icon { width: 56px; height: 56px; border-radius: 14px; background: rgba(34, 211, 238, 0.15); border: 1px solid rgba(34, 211, 238, 0.3); display: flex; align-items: center; justify-content: center; color: #22d3ee; font-size: 1.5rem; box-shadow: 0 0 25px rgba(34, 211, 238, 0.3); flex-shrink: 0; }
+.reality-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; color: #f1f5f9; letter-spacing: -0.01em; line-height: 1.2; }
+.reality-subtitle { font-size: 0.8rem; color: rgba(34, 211, 238, 0.9); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; margin-top: 0.2rem; }
+.reality-text { font-size: 1.05rem; line-height: 1.9; color: rgba(203, 213, 225, 0.9); font-weight: 300; margin-bottom: 1.5rem; }
+.reality-text strong { color: #f1f5f9; font-weight: 600; }
+.reality-text em { color: #2dd4bf; font-style: italic; font-weight: 500; }
+
+.big-question { background: linear-gradient(135deg, rgba(34, 211, 238, 0.1) 0%, rgba(6, 182, 212, 0.06) 100%); border: 1px solid rgba(34, 211, 238, 0.3); border-left: 4px solid #22d3ee; border-radius: 16px; padding: 2.5rem; margin: 2.5rem 0; position: relative; }
+.big-question::before { content: '"'; position: absolute; top: -20px; left: 30px; font-family: 'Cormorant Garamond', serif; font-size: 8rem; color: rgba(34, 211, 238, 0.2); line-height: 1; font-weight: 700; }
+.big-question-text { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; font-style: italic; line-height: 1.3; color: #f1f5f9; position: relative; z-index: 2; }
+.big-question-text strong { color: #22d3ee; font-weight: 700; }
+
+.sdg-split-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(20px); border-radius: 24px; overflow: hidden; border: 1px solid rgba(34, 211, 238, 0.18); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); margin-bottom: 2rem; display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; }
+.sdg-split-image { position: relative; overflow: hidden; background: linear-gradient(135deg, #0c4a6e 0%, #164e63 50%, #0f766e 100%); }
+.sdg-split-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s ease; }
+.sdg-split-card:hover .sdg-split-image img { transform: scale(1.05); }
+.sdg-split-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 60%, rgba(15, 23, 42, 0.4) 100%); pointer-events: none; }
+.sdg-split-content { padding: 3rem; display: flex; flex-direction: column; justify-content: center; position: relative; }
+.sdg-split-content::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 20% 30%, rgba(34, 211, 238, 0.08) 0%, transparent 50%); pointer-events: none; }
+.sdg-split-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 1rem; background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.25); border-radius: 100px; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; width: fit-content; color: #22d3ee; margin-bottom: 1.5rem; position: relative; z-index: 2; }
+.sdg-split-number { font-family: 'Cormorant Garamond', serif; font-size: 6rem; font-weight: 700; line-height: 1; background: linear-gradient(180deg, #22d3ee 0%, #0891b2 50%, #164e63 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 0 20px rgba(34, 211, 238, 0.4)); margin-bottom: 0.5rem; position: relative; z-index: 2; }
+.sdg-split-title { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 600; line-height: 1.1; letter-spacing: -0.01em; color: #f1f5f9; margin-bottom: 1rem; position: relative; z-index: 2; }
+.sdg-split-description { font-size: 1rem; line-height: 1.8; color: rgba(203, 213, 225, 0.9); font-weight: 300; margin-bottom: 1.5rem; position: relative; z-index: 2; }
+
+.acid-section { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(20px); border-radius: 24px; padding: 3rem; border: 1px solid rgba(34, 211, 238, 0.2); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); margin-bottom: 2rem; position: relative; overflow: hidden; }
+.acid-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, #22d3ee, transparent); }
+.acid-section::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.05) 0%, transparent 50%); pointer-events: none; }
+.acid-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(34, 211, 238, 0.2); position: relative; z-index: 2; }
+.acid-icon { width: 56px; height: 56px; border-radius: 14px; background: rgba(34, 211, 238, 0.15); border: 1px solid rgba(34, 211, 238, 0.3); display: flex; align-items: center; justify-content: center; color: #22d3ee; font-size: 1.5rem; box-shadow: 0 0 25px rgba(34, 211, 238, 0.3); flex-shrink: 0; }
+.acid-title { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; color: #f1f5f9; letter-spacing: -0.01em; line-height: 1.2; }
+.acid-subtitle { font-size: 0.8rem; color: rgba(34, 211, 238, 0.9); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; margin-top: 0.2rem; }
+.acid-block { background: rgba(2, 6, 23, 0.5); border: 1px solid rgba(34, 211, 238, 0.15); border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; position: relative; z-index: 2; transition: all 0.3s ease; }
+.acid-block:hover { border-color: rgba(34, 211, 238, 0.3); background: rgba(2, 6, 23, 0.6); }
+.acid-block-label { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.9rem; background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.25); border-radius: 100px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #22d3ee; margin-bottom: 1rem; }
+.acid-block-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: #f1f5f9; margin-bottom: 1rem; letter-spacing: -0.01em; }
+.acid-block-text { font-size: 0.95rem; line-height: 1.8; color: rgba(203, 213, 225, 0.9); font-weight: 300; }
+.acid-block-text strong { color: #f1f5f9; font-weight: 600; }
+
+.content-section { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(20px); border-radius: 24px; padding: 3rem; border: 1px solid rgba(34, 211, 238, 0.12); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); margin-bottom: 2rem; }
+.content-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(34, 211, 238, 0.12); }
+.content-indicator { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 0.6rem; box-shadow: 0 0 10px currentColor; }
+.content-title { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; color: #f1f5f9; letter-spacing: -0.01em; line-height: 1.2; }
+.content-description { font-size: 1.05rem; line-height: 1.8; color: rgba(148, 163, 184, 0.9); margin-bottom: 2rem; font-weight: 300; }
+.topics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
+.topic-card { display: flex; align-items: center; gap: 1rem; padding: 1.25rem; background: rgba(15, 23, 42, 0.5); border-radius: 12px; border-left: 3px solid; border-top: 1px solid rgba(255, 255, 255, 0.03); border-right: 1px solid rgba(255, 255, 255, 0.03); border-bottom: 1px solid rgba(255, 255, 255, 0.03); transition: all 0.3s ease; }
+.topic-card:hover { background: rgba(15, 23, 42, 0.8); transform: translateX(4px); border-color: rgba(255, 255, 255, 0.08); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); }
+.topic-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 0 15px currentColor; }
+.topic-icon i { font-size: 1rem; color: white; }
+.topic-text { font-size: 0.9rem; color: #cbd5e1; font-weight: 400; line-height: 1.4; letter-spacing: 0.01em; }
+
+.home-hero { background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.75) 100%); border-radius: 24px; padding: 4rem 3rem; color: white; position: relative; overflow: hidden; margin-bottom: 2rem; border: 1px solid rgba(34, 211, 238, 0.18); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(34, 211, 238, 0.04); }
+.home-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 30%, rgba(34, 211, 238, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.08) 0%, transparent 50%); pointer-events: none; }
+.home-hero-content { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+.home-hero-left { display: flex; flex-direction: column; gap: 1.5rem; }
+.home-hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 1rem; background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.25); border-radius: 100px; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; width: fit-content; color: #22d3ee; }
+.home-hero-number { font-family: 'Cormorant Garamond', serif; font-size: 9rem; font-weight: 700; line-height: 1; background: linear-gradient(180deg, #22d3ee 0%, #0891b2 50%, #164e63 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 0 30px rgba(34, 211, 238, 0.5)); }
+.home-hero-title { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 600; line-height: 1.1; letter-spacing: -0.01em; color: #f1f5f9; }
+.home-hero-description { font-size: 1rem; line-height: 1.7; color: rgba(148, 163, 184, 0.9); max-width: 500px; font-weight: 300; }
+.home-hero-right { display: flex; justify-content: center; align-items: center; }
+.home-hero-visual { width: 280px; height: 280px; background: radial-gradient(circle, rgba(34, 211, 238, 0.1) 0%, rgba(15, 23, 42, 0.45) 70%); border: 1px solid rgba(34, 211, 238, 0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 0 60px rgba(34, 211, 238, 0.2), inset 0 0 60px rgba(34, 211, 238, 0.08); }
+.home-hero-visual::before { content: ''; position: absolute; inset: -25px; border: 1px solid rgba(34, 211, 238, 0.15); border-radius: 50%; animation: pulse 4s infinite ease-in-out; }
+.home-hero-visual::after { content: ''; position: absolute; inset: -50px; border: 1px solid rgba(34, 211, 238, 0.08); border-radius: 50%; animation: pulse 4s infinite ease-in-out 1s; }
+@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.08); opacity: 0.4; } }
+@keyframes iconGlow { 0%, 100% { filter: drop-shadow(0 0 20px rgba(74, 222, 128, 0.7)); } 50% { filter: drop-shadow(0 0 35px rgba(74, 222, 128, 1)); } }
+
+.placeholder-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(20px); border-radius: 24px; padding: 4rem 3rem; border: 1px solid rgba(34, 211, 238, 0.12); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); text-align: center; margin-bottom: 2rem; }
+.placeholder-icon { width: 80px; height: 80px; border-radius: 50%; background: rgba(148, 163, 184, 0.1); border: 1px solid rgba(148, 163, 184, 0.2); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; color: rgba(148, 163, 184, 0.6); }
+.placeholder-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; color: #f1f5f9; margin-bottom: 0.75rem; }
+.placeholder-text { font-size: 1rem; line-height: 1.7; color: rgba(148, 163, 184, 0.8); font-weight: 300; max-width: 500px; margin: 0 auto; }
+
+.bio-section-card { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(74, 222, 128, 0.15); border-radius: 20px; padding: 2.5rem; margin-bottom: 2rem; position: relative; overflow: hidden; transition: all 0.4s ease; }
+.bio-section-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--section-accent, #4ade80), transparent); }
+.bio-section-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 90% 10%, rgba(74, 222, 128, 0.04) 0%, transparent 50%); pointer-events: none; }
+.bio-section-card:hover { border-color: rgba(74, 222, 128, 0.3); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 40px rgba(74, 222, 128, 0.08); transform: translateY(-2px); }
+.bio-section-header { display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.5rem; position: relative; z-index: 2; }
+.bio-section-number { width: 64px; height: 64px; border-radius: 16px; background: linear-gradient(135deg, var(--section-accent, #4ade80), var(--section-accent-dark, #16a34a)); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: white; flex-shrink: 0; box-shadow: 0 0 30px var(--section-accent, #4ade80); position: relative; }
+.bio-section-number::after { content: ''; position: absolute; inset: -4px; border-radius: 20px; border: 1px solid var(--section-accent, #4ade80); opacity: 0.3; }
+.bio-section-title-block { flex-grow: 1; }
+.bio-section-emoji { font-size: 1.5rem; margin-right: 0.5rem; }
+.bio-section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: #f1f5f9; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 0.3rem; }
+.bio-section-subtitle { font-size: 0.85rem; color: rgba(74, 222, 128, 0.85); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; }
+.bio-section-intro { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; font-weight: 500; line-height: 1.6; color: rgba(226, 232, 240, 0.95); margin-bottom: 1.5rem; padding: 1.25rem 1.5rem; background: rgba(74, 222, 128, 0.05); border-left: 3px solid var(--section-accent, #4ade80); border-radius: 0 12px 12px 0; position: relative; z-index: 2; }
+.bio-section-intro::before { content: '"'; position: absolute; top: -5px; left: 10px; font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--section-accent, #4ade80); opacity: 0.3; line-height: 1; }
+.bio-subsection-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: #f1f5f9; margin: 1.5rem 0 0.75rem; padding-left: 1rem; border-left: 3px solid var(--section-accent, #4ade80); }
+.bio-text { font-size: 1rem; line-height: 1.8; color: rgba(203, 213, 225, 0.92); font-weight: 300; margin-bottom: 1rem; }
+.bio-text strong { color: #f1f5f9; font-weight: 600; }
+.bio-text em { color: #4ade80; font-style: italic; font-weight: 500; }
+.bio-text a { color: #22d3ee; text-decoration: none; border-bottom: 1px dashed rgba(34, 211, 238, 0.4); transition: all 0.3s ease; }
+.bio-text a:hover { color: #4ade80; border-bottom-color: #4ade80; }
+.bio-image-container { margin: 1.5rem 0; border-radius: 12px; overflow: hidden; border: 1px solid rgba(74, 222, 128, 0.2); }
+.bio-image-container img { width: 100%; height: auto; display: block; }
+.bio-image-caption { padding: 0.75rem 1rem; background: rgba(2, 6, 23, 0.6); font-size: 0.85rem; color: rgba(148, 163, 184, 0.8); font-style: italic; }
+.bio-key-concept { background: linear-gradient(135deg, rgba(74, 222, 128, 0.1) 0%, rgba(22, 163, 74, 0.05) 100%); border: 1px solid rgba(74, 222, 128, 0.25); border-radius: 14px; padding: 1.5rem; margin: 1.5rem 0; position: relative; z-index: 2; }
+.bio-key-concept-label { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.8rem; background: rgba(74, 222, 128, 0.15); border: 1px solid rgba(74, 222, 128, 0.3); border-radius: 100px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #4ade80; margin-bottom: 0.75rem; }
+.bio-key-concept-text { font-size: 0.95rem; line-height: 1.7; color: rgba(226, 232, 240, 0.95); font-weight: 400; }
+.bio-key-concept-text strong { color: #f1f5f9; font-weight: 600; }
+.bio-sdg-connection { background: linear-gradient(135deg, rgba(34, 211, 238, 0.08) 0%, rgba(6, 182, 212, 0.04) 100%); border: 1px solid rgba(34, 211, 238, 0.2); border-left: 4px solid #22d3ee; border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; display: flex; gap: 1rem; align-items: flex-start; position: relative; z-index: 2; }
+.bio-sdg-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(34, 211, 238, 0.15); display: flex; align-items: center; justify-content: center; color: #22d3ee; font-size: 1rem; flex-shrink: 0; }
+.bio-sdg-text { font-size: 0.9rem; line-height: 1.6; color: rgba(203, 213, 225, 0.95); font-weight: 300; }
+.bio-sdg-text strong { color: #22d3ee; font-weight: 600; }
+.bio-suggested-subheading { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(74, 222, 128, 0.08); border: 1px dashed rgba(74, 222, 128, 0.3); border-radius: 100px; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-style: italic; color: rgba(74, 222, 128, 0.9); margin: 1rem 0; }
+.bio-suggested-subheading i { font-size: 0.8rem; }
+.bio-energy-flow { display: flex; align-items: center; justify-content: center; gap: 1rem; margin: 1.5rem 0; padding: 1.5rem; background: rgba(2, 6, 23, 0.5); border-radius: 12px; border: 1px solid rgba(74, 222, 128, 0.15); position: relative; z-index: 2; flex-wrap: wrap; }
+.bio-energy-step { padding: 0.75rem 1.25rem; background: rgba(74, 222, 128, 0.15); border: 1px solid rgba(74, 222, 128, 0.3); border-radius: 10px; font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.1rem; color: #4ade80; text-align: center; }
+.bio-energy-arrow { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; color: rgba(203, 213, 225, 0.7); font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; }
+.bio-energy-arrow i { color: #4ade80; font-size: 1.2rem; animation: arrowPulse 2s infinite ease-in-out; }
+@keyframes arrowPulse { 0%, 100% { opacity: 0.6; transform: translateX(0); } 50% { opacity: 1; transform: translateX(3px); } }
+.bio-process-list { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.75rem; }
+.bio-process-list li { padding: 1rem 1.25rem; background: rgba(2, 6, 23, 0.4); border-radius: 10px; border-left: 3px solid var(--section-accent, #4ade80); font-size: 0.95rem; line-height: 1.6; color: rgba(203, 213, 225, 0.95); font-weight: 300; display: flex; align-items: flex-start; gap: 0.75rem; }
+.bio-process-list li strong { color: #f1f5f9; font-weight: 600; }
+.bio-process-list li .process-num { display: inline-block; width: 28px; height: 28px; border-radius: 50%; background: var(--section-accent, #4ade80); color: #0f172a; text-align: center; line-height: 28px; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
+.bio-sources { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(74, 222, 128, 0.15); }
+.bio-sources-title { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(74, 222, 128, 0.9); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+.bio-sources-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.bio-sources-list li { font-size: 0.85rem; color: rgba(148, 163, 184, 0.8); line-height: 1.5; padding-left: 1rem; border-left: 2px solid rgba(74, 222, 128, 0.3); }
+.bio-sources-list li a { color: #22d3ee; text-decoration: none; word-break: break-all; }
+.bio-sources-list li a:hover { color: #4ade80; text-decoration: underline; }
+.bio-quote-box { background: linear-gradient(135deg, rgba(251, 191, 36, 0.08) 0%, rgba(245, 158, 11, 0.04) 100%); border: 1px solid rgba(251, 191, 36, 0.25); border-left: 4px solid #fbbf24; border-radius: 12px; padding: 1.5rem 2rem; margin: 1.5rem 0; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-style: italic; color: rgba(251, 191, 36, 0.95); text-align: center; }
+
+.lato-intro-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(20px); border-radius: 24px; overflow: hidden; border: 1px solid rgba(74, 222, 128, 0.2); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); margin-bottom: 2rem; display: grid; grid-template-columns: 1fr 1.2fr; min-height: 420px; position: relative; }
+.lato-intro-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #4ade80, #22d3ee, #4ade80); z-index: 3; }
+.lato-image-container { position: relative; overflow: hidden; background: linear-gradient(135deg, #0f3d2e 0%, #1a5c45 50%, #0d3326 100%); }
+.lato-image-container img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s ease; }
+.lato-intro-card:hover .lato-image-container img { transform: scale(1.05); }
+.lato-image-container::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 50%, rgba(15, 23, 42, 0.5) 100%); pointer-events: none; }
+.lato-image-badge { position: absolute; top: 1.5rem; left: 1.5rem; z-index: 2; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(74, 222, 128, 0.3); border-radius: 100px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #4ade80; }
+.lato-image-caption { position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem; z-index: 2; font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.9rem; color: rgba(255, 255, 255, 0.9); text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8); }
+.lato-content { padding: 3rem; display: flex; flex-direction: column; justify-content: center; position: relative; }
+.lato-content::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 80% 20%, rgba(74, 222, 128, 0.06) 0%, transparent 50%); pointer-events: none; }
+.lato-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.25); border-radius: 100px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #4ade80; margin-bottom: 1.25rem; width: fit-content; position: relative; z-index: 2; }
+.lato-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; font-style: italic; color: #f1f5f9; margin-bottom: 1.5rem; line-height: 1.2; letter-spacing: -0.01em; position: relative; z-index: 2; }
+.lato-title .highlight-word { color: #4ade80; font-weight: 700; }
+.lato-text { font-size: 0.98rem; line-height: 1.8; color: rgba(203, 213, 225, 0.92); font-weight: 300; margin-bottom: 1.25rem; position: relative; z-index: 2; }
+.lato-text strong { color: #f1f5f9; font-weight: 600; }
+.lato-text em { color: #4ade80; font-style: italic; font-weight: 500; }
+.lato-citation { font-size: 0.8rem; color: rgba(148, 163, 184, 0.7); font-style: italic; padding-left: 1rem; border-left: 2px solid rgba(74, 222, 128, 0.3); margin-top: 0.5rem; position: relative; z-index: 2; }
+.lato-divider { width: 60px; height: 2px; background: linear-gradient(90deg, #4ade80, transparent); margin: 1.5rem 0; position: relative; z-index: 2; }
+.lato-final-paragraph { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-style: italic; font-weight: 500; line-height: 1.7; color: rgba(226, 232, 240, 0.95); padding: 1.25rem 1.5rem; background: rgba(74, 222, 128, 0.05); border-left: 3px solid #4ade80; border-radius: 0 12px 12px 0; position: relative; z-index: 2; }
+.lato-final-paragraph::before { content: '☀️'; position: absolute; top: -12px; left: 15px; font-size: 1.2rem; font-style: normal; }
+.lato-final-paragraph strong { color: #fbbf24; font-weight: 700; }
+
+@media (max-width: 1024px) {
+.sdg-split-card { grid-template-columns: 1fr; }
+.sdg-split-image { min-height: 300px; }
+.home-hero-content { grid-template-columns: 1fr; text-align: center; }
+.home-hero-left { align-items: center; }
+.home-hero-badge { margin: 0 auto; }
+.home-hero-visual { width: 200px; height: 200px; }
+.home-hero-number { font-size: 7rem; }
+.opening-question { font-size: 3rem; }
+.dream-text { font-size: 1.3rem; }
+.video-hero { height: 50vh; min-height: 400px; }
+.lato-intro-card { grid-template-columns: 1fr; min-height: auto; }
+.lato-image-container { min-height: 300px; }
+.report-container { padding: 2rem; }
+.report-table { font-size: 0.8rem; }
+.flowchart-grid { gap: 1rem 2rem; }
+.flow-box { font-size: 0.85rem; padding: 1rem 0.75rem; }
+.flow-arrow-right, .flow-arrow-left { right: -2.2rem; left: -2.2rem; }
+}
+@media (max-width: 768px) {
+.nav-inner { padding: 0.75rem 1rem; }
+.tabs-inner { padding: 0 1rem; }
+.tab-btn { padding: 0.75rem 1rem; font-size: 0.8rem; }
+main { padding: 1.5rem 1rem; }
+.sdg-split-content { padding: 2rem 1.5rem; }
+.sdg-split-number { font-size: 4rem; }
+.sdg-split-title { font-size: 1.75rem; }
+.home-hero, .dream-ocean, .reality-section, .content-section, .acid-section, .bio-section-card, .lato-content, .report-container { padding: 2rem 1.5rem; }
+.home-hero-number { font-size: 5rem; }
+.home-hero-title { font-size: 1.75rem; }
+.opening-question { font-size: 2.2rem; }
+.content-title, .acid-title, .reality-title, .bio-section-title, .lato-title, .report-title { font-size: 1.5rem; }
+.topics-grid { grid-template-columns: 1fr; }
+.big-question-text { font-size: 1.4rem; }
+.dream-text { font-size: 1.1rem; }
+.video-hero { height: 60vh; min-height: 350px; }
+.video-hero-content { padding: 2rem 1.5rem; }
+.bio-section-header { flex-direction: column; gap: 1rem; }
+.bio-energy-flow { flex-wrap: wrap; }
+.lato-image-container { min-height: 250px; }
+.report-meta { flex-direction: column; gap: 0.5rem; }
+.report-section-title { font-size: 1.3rem; }
+.report-table th, .report-table td { padding: 0.6rem; font-size: 0.75rem; }
+.flowchart-grid { grid-template-columns: 1fr; gap: 1rem; }
+.flow-arrow-right, .flow-arrow-left { display: none; }
+.flow-arrow-down { display: block; position: static; transform: none; text-align: center; margin: 0.5rem 0; }
+}
+</style>
+</head>
+<body>
+<div class="ambient-orb orb-1"></div>
+<div class="ambient-orb orb-2"></div>
+<div class="ambient-orb orb-3"></div>
+<div class="ambient-orb orb-4"></div>
+<div class="ambient-orb orb-5"></div>
+<div class="ambient-orb orb-6"></div>
+<div class="aurora-container">
+<div class="aurora-glow"></div>
+<div class="aurora-band aurora-band-1"></div>
+<div class="aurora-band aurora-band-2"></div>
+<div class="aurora-band aurora-band-3"></div>
+<div class="aurora-band aurora-band-4"></div>
+<div class="aurora-band aurora-band-5"></div>
+<div class="aurora-band aurora-band-6"></div>
+</div>
+<div class="volumetric-haze"></div>
+<div id="bioParticles"></div>
+<nav class="top-nav">
+<div class="nav-inner">
+<div class="logo">
+<div class="logo-icon"><i class="fas fa-water"></i></div>
+<span class="logo-text">MIL Performance Task</span>
+</div>
+<div class="nav-date">
+<i class="fas fa-calendar-alt"></i>
+<span>September 18, 2026</span>
+</div>
+</div>
+</nav>
+<div class="tabs-wrapper">
+<div class="tabs-inner" id="tabContainer">
+<button data-tab="home" class="tab-btn active"><i class="fas fa-home"></i><span>Home</span></button>
+<button data-tab="sub1" class="tab-btn"><i class="fas fa-water"></i><span>SDG 14</span></button>
+<button data-tab="sub2" class="tab-btn">
+<span class="hydrilla-logo" style="width: 18px; height: 18px;">
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M32 58V18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M32 22C32 22 26 19 22 16C18 13 16 10 16 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 22C32 22 38 19 42 16C46 13 48 10 48 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 30C32 30 27 28 24 25C21 22 20 19 20 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 30C32 30 37 28 40 25C43 22 44 19 44 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 38C32 38 28 36 26 33C24 30 24 28 24 28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 38C32 38 36 36 38 33C40 30 40 28 40 28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 46C32 46 29 44 27 41C25 38 26 36 26 36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 46C32 46 35 44 37 41C39 38 38 36 38 36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 54C32 54 30 52 29 49C28 46 29 44 29 44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 54C32 54 34 52 35 49C36 46 35 44 35 44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 58C32 58 28 60 26 62" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+<path d="M32 58C32 58 36 60 38 62" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+</svg>
+</span>
+<span>Biology</span>
+</button>
+<button data-tab="sub3" class="tab-btn"><i class="fas fa-atom"></i><span>Physics</span></button>
+<button data-tab="sub4" class="tab-btn"><i class="fas fa-circle-notch"></i><span>Subject 4</span></button>
+<button data-tab="sub5" class="tab-btn"><i class="fas fa-circle-notch"></i><span>Subject 5</span></button>
+<button data-tab="sub6" class="tab-btn"><i class="fas fa-circle-notch"></i><span>Subject 6</span></button>
+</div>
+</div>
+<main>
+<div id="mainContent"></div>
+</main>
+<script>
+function createBioParticles() {
+const container = document.getElementById('bioParticles');
+container.innerHTML = '';
+const count = 25;
+const colors = ['cyan', 'teal', 'purple', 'blue'];
+for (let i = 0; i < count; i++) {
+const particle = document.createElement('div');
+particle.classList.add('bio-particle');
+const color = colors[Math.floor(Math.random() * colors.length)];
+particle.classList.add(color);
+const size = Math.random() * 8 + 3;
+particle.style.width = `${size}px`;
+particle.style.height = `${size}px`;
+particle.style.left = `${Math.random() * 100}%`;
+particle.style.top = `${Math.random() * 100}%`;
+particle.style.animationDuration = `${Math.random() * 15 + 12}s`;
+particle.style.animationDelay = `${Math.random() * 10}s`;
+container.appendChild(particle);
+}
+}
+const tabData = {
+home: { type: 'home' },
+sub1: { type: 'sdg14' },
+sub2: { type: 'biology' },
+sub3: { type: 'physics' },
+sub4: { type: 'placeholder', title: 'Subject 4', icon: 'fa-calculator' },
+sub5: { type: 'placeholder', title: 'Subject 5', icon: 'fa-laptop-code' },
+sub6: { type: 'placeholder', title: 'Subject 6', icon: 'fa-book-open' }
+};
+const tabButtons = document.querySelectorAll('.tab-btn');
+const mainContent = document.getElementById('mainContent');
+
+function renderHome() {
+return `
+<div class="video-hero">
+<div class="video-hero-fallback"></div>
+<img src="https://lleenoob.s-ul.eu/UWt9IEyQ" alt="Octopus underwater" class="video-gif-bg" onerror="this.style.display='none';">
+<div class="video-overlay"></div>
+<div class="video-grain"></div>
+<div class="video-hero-content">
+<div class="opening-eyebrow"><i class="fas fa-question-circle"></i><span>A Question We Must Ask</span></div>
+<h1 class="opening-question">What If We Had<br>Protected Our Oceans?</h1>
+<div class="opening-divider"></div>
+</div>
+<div class="video-indicator"><div class="pulse-dot"></div><span>Playing</span></div>
+</div>
+<div class="dream-ocean">
+<div class="dream-label"><i class="fas fa-water"></i><span>The Ocean We Could Have Had</span></div>
+<p class="dream-text">Imagine an ocean where <span class="highlight">coral reefs still glow with life</span>, marine animals thrive in clear waters, and every wave carries the sound of a healthy ecosystem. An ocean where pollution is controlled, marine habitats are protected, and the life beneath the surface is given the care it deserves.</p>
+</div>
+<div class="reality-section">
+<div class="reality-header">
+<div class="reality-icon"><i class="fas fa-triangle-exclamation"></i></div>
+<div>
+<h2 class="reality-title">The Reality We Face</h2>
+<div class="reality-subtitle">The Ocean in Crisis</div>
+</div>
+</div>
+<p class="reality-text">That could have been our reality if <strong>Sustainable Development Goal 14: Life Below Water</strong> had been taken seriously.</p>
+<p class="reality-text">Instead, our oceans are facing a growing crisis. Rising carbon dioxide levels are not only warming the planet—they are also changing the chemistry of seawater. This process, known as <em>ocean acidification</em>, makes it harder for corals, shellfish, and other marine organisms to build and maintain their protective structures. Alongside it, <em>coral bleaching</em> is turning once-vibrant reefs pale and threatening the ecosystems that depend on them.</p>
+<div class="big-question">
+<p class="big-question-text">The ocean is changing. <strong>The question is: how much are we willing to lose before we act?</strong></p>
+</div>
+</div>
+`;
+}
+
+function renderSDG14() {
+return `
+<div class="sdg-split-card">
+<div class="sdg-split-image">
+<img src="https://cdn.britannica.com/81/124081-050-740D9BE2/Scuba-diver.jpg" alt="Ocean marine life" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #0c4a6e 0%, #164e63 50%, #0f766e 100%)';">
+</div>
+<div class="sdg-split-content">
+<div class="sdg-split-badge"><i class="fas fa-water"></i><span>SDG 14 Focus</span></div>
+<div class="sdg-split-number">14</div>
+<h2 class="sdg-split-title">Life Below Water</h2>
+<p class="sdg-split-description">SDG 14 calls for the conservation and sustainable use of our oceans, seas, and marine resources. Our oceans regulate the global climate, provide food and livelihoods for billions, and harbor extraordinary biodiversity. Yet they face unprecedented threats from pollution, overfishing, acidification, and habitat destruction.</p>
+</div>
+</div>
+
+<div class="content-section">
+<div class="content-header">
+<div class="content-indicator" style="background: #22d3ee; color: #22d3ee;"></div>
+<h2 class="content-title">Key Targets of SDG 14</h2>
+</div>
+<p class="content-description">By 2030, the United Nations aims to achieve measurable progress across multiple ocean-related targets. These goals address marine pollution, ecosystem protection, sustainable fishing, and scientific research.</p>
+<div class="topics-grid">
+<div class="topic-card" style="border-left-color: #22d3ee;"><div class="topic-icon" style="background: #22d3ee; color: #22d3ee;"><i class="fas fa-trash-can"></i></div><span class="topic-text">Reduce marine pollution, especially from land-based activities</span></div>
+<div class="topic-card" style="border-left-color: #22d3ee;"><div class="topic-icon" style="background: #22d3ee; color: #22d3ee;"><i class="fas fa-shield-halved"></i></div><span class="topic-text">Protect and restore marine and coastal ecosystems</span></div>
+<div class="topic-card" style="border-left-color: #22d3ee;"><div class="topic-icon" style="background: #22d3ee; color: #22d3ee;"><i class="fas fa-temperature-arrow-down"></i></div><span class="topic-text">Minimize ocean acidification and its impacts</span></div>
+<div class="topic-card" style="border-left-color: #22d3ee;"><div class="topic-icon" style="background: #22d3ee; color: #22d3ee;"><i class="fas fa-fish-fins"></i></div><span class="topic-text">End overfishing and restore fish stocks to sustainable levels</span></div>
+<div class="topic-card" style="border-left-color: #22d3ee;"><div class="topic-icon" style="background: #22d3ee; color: #22d3ee;"><i class="fas fa-map-location-dot"></i></div><span class="topic-text">Conserve at least 10% of coastal and marine areas</span></div>
+<div class="topic-card" style="border-left-color: #22d3ee;"><div class="topic-icon" style="background: #22d3ee; color: #22d3ee;"><i class="fas fa-microscope"></i></div><span class="topic-text">Increase scientific knowledge and research capacity</span></div>
+</div>
+</div>
+
+<div class="acid-section">
+<div class="acid-header">
+<div class="acid-icon"><i class="fas fa-flask-vial"></i></div>
+<div>
+<h2 class="acid-title">Ocean Acidification: The Chemical Driver</h2>
+<div class="acid-subtitle">The Hidden Cost of CO₂ Absorption</div>
+</div>
+</div>
+<div class="acid-block">
+<div class="acid-block-label"><i class="fas fa-cloud"></i> 2.1 Atmospheric & Chemical Mechanisms</div>
+<h3 class="acid-block-title" style="font-size: 1.3rem; margin-top: 0.5rem;">Atmospheric CO₂ Absorption</h3>
+<p class="acid-block-text">Since the Industrial Revolution, the absorption of excess anthropogenic atmospheric carbon dioxide (CO₂) has significantly altered marine chemistry. As human activities burn fossil fuels and increase global carbon emissions, the ocean acts as a massive carbon sink, absorbing roughly <strong>30% of the CO₂ released</strong> into the atmosphere (NOAA Education, n.d.).</p>
+<h3 class="acid-block-title" style="font-size: 1.3rem; margin-top: 1.5rem;">Formation of Carbonic Acid</h3>
+<p class="acid-block-text">When dissolved in seawater, carbon dioxide undergoes a series of chemical reactions. It reacts with water (H₂O) to form <strong>carbonic acid (H₂CO₃)</strong>, a weak acid that readily releases hydrogen ions (H⁺). This increase in free hydrogen ion concentration directly lowers seawater pH, making the ocean progressively more acidic (NOAA Education, n.d.; OSPAR Commission, 2023).</p>
+</div>
+<div class="acid-block">
+<div class="acid-block-label"><i class="fas fa-water"></i> 2.2 Chemical Consequences on Marine Chemistry</div>
+<h3 class="acid-block-title" style="font-size: 1.3rem; margin-top: 0.5rem;">Depletion of Carbonate Ions</h3>
+<p class="acid-block-text">When ocean water becomes more acidic, extra hydrogen ions bind to free carbonate ions in the water. Carbonate ions are essential "building blocks" that sea creatures—such as corals, oysters, clams, and tiny plankton—need to grow and maintain their protective shells and skeletons. As these building blocks disappear, shelled marine life struggles to build new shells, and existing shells can even begin to dissolve (NOAA Education, n.d.; OSPAR Commission, 2023).</p>
+</div>
+<div class="acid-block" style="background: rgba(2, 6, 23, 0.3); border-color: rgba(148, 163, 184, 0.1);">
+<div class="acid-block-label" style="background: rgba(148, 163, 184, 0.1); border-color: rgba(148, 163, 184, 0.2); color: #94a3b8;"><i class="fas fa-book-open"></i> References</div>
+<ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem;">
+<li style="font-size: 0.85rem; line-height: 1.6; color: rgba(203, 213, 225, 0.7); font-style: italic; padding-left: 1rem; border-left: 2px solid rgba(148, 163, 184, 0.2);">
+NOAA Education. (n.d.). Ocean acidification. National Oceanic and Atmospheric Administration. Retrieved September 18, 2026, from https://www.noaa.gov/education/resource-collections/ocean-coasts/ocean-acidification
+</li>
+<li style="font-size: 0.85rem; line-height: 1.6; color: rgba(203, 213, 225, 0.7); font-style: italic; padding-left: 1rem; border-left: 2px solid rgba(148, 163, 184, 0.2);">
+OSPAR Commission. (2023). Ocean acidification. OSPAR Assessment Portal. Retrieved September 22, 2026, from https://oap.ospar.org/en/ospar-assessments/quality-status-reports/qsr-2023/other-assessments/ocean-acidification/
+</li>
+</ul>
+</div>
+</div>
+`;
+}
+
+function renderBiology() {
+return `
+<div class="home-hero" style="background: linear-gradient(135deg, rgba(22, 101, 52, 0.35) 0%, rgba(15, 30, 20, 0.75) 100%); border-color: rgba(74, 222, 128, 0.25);">
+<div class="home-hero-content">
+<div class="home-hero-left">
+<div class="home-hero-badge" style="background: rgba(74, 222, 128, 0.1); border-color: rgba(74, 222, 128, 0.3); color: #4ade80;">
+<span class="hydrilla-logo" style="width: 14px; height: 14px;">
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 22V8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+<path d="M12 8C12 8 9 7 7 5C5 3 4 1 4 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+<path d="M12 8C12 8 15 7 17 5C19 3 20 1 20 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+<path d="M12 13C12 13 9.5 12 8 10.5C6.5 9 6 7.5 6 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+<path d="M12 13C12 13 14.5 12 16 10.5C17.5 9 18 7.5 18 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+</svg>
+</span>
+<span>Biology Module</span>
+</div>
+<div class="home-hero-number" style="background: linear-gradient(180deg, #4ade80 0%, #16a34a 50%, #14532d 100%); filter: drop-shadow(0 0 30px rgba(74, 222, 128, 0.5)); display: flex; align-items: center; justify-content: center;">
+<span class="hydrilla-logo" style="width: 180px; height: 180px; color: #4ade80; filter: drop-shadow(0 0 20px rgba(74, 222, 128, 0.7));">
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+<path d="M32 58V18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M32 22C32 22 26 19 22 16C18 13 16 10 16 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 22C32 22 38 19 42 16C46 13 48 10 48 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 30C32 30 27 28 24 25C21 22 20 19 20 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 30C32 30 37 28 40 25C43 22 44 19 44 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 38C32 38 28 36 26 33C24 30 24 28 24 28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 38C32 38 36 36 38 33C40 30 40 28 40 28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 46C32 46 29 44 27 41C25 38 26 36 26 36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 46C32 46 35 44 37 41C39 38 38 36 38 36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 54C32 54 30 52 29 49C28 46 29 44 29 44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 54C32 54 34 52 35 49C36 46 35 44 35 44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 58C32 58 28 60 26 62" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+<path d="M32 58C32 58 36 60 38 62" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+</svg>
+</span>
+</div>
+<h1 class="home-hero-title">The Power of Photosynthesis</h1>
+<p class="home-hero-description">From sunlight to sugar — discover how marine producers capture energy and fuel the entire ocean food web.</p>
+</div>
+<div class="home-hero-right">
+<div class="home-hero-visual" style="background: radial-gradient(circle, rgba(74, 222, 128, 0.12) 0%, rgba(15, 23, 42, 0.45) 70%); border-color: rgba(74, 222, 128, 0.3); box-shadow: 0 0 60px rgba(74, 222, 128, 0.2), inset 0 0 60px rgba(74, 222, 128, 0.08);">
+<span class="hydrilla-logo" style="width: 160px; height: 160px; color: #4ade80; filter: drop-shadow(0 0 20px rgba(74, 222, 128, 0.7)); animation: iconGlow 3s infinite ease-in-out;">
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+<path d="M32 58V18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M32 22C32 22 26 19 22 16C18 13 16 10 16 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 22C32 22 38 19 42 16C46 13 48 10 48 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 30C32 30 27 28 24 25C21 22 20 19 20 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 30C32 30 37 28 40 25C43 22 44 19 44 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 38C32 38 28 36 26 33C24 30 24 28 24 28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 38C32 38 36 36 38 33C40 30 40 28 40 28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 46C32 46 29 44 27 41C25 38 26 36 26 36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 46C32 46 35 44 37 41C39 38 38 36 38 36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 54C32 54 30 52 29 49C28 46 29 44 29 44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 54C32 54 34 52 35 49C36 46 35 44 35 44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+<path d="M32 58C32 58 28 60 26 62" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+<path d="M32 58C32 58 36 60 38 62" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+</svg>
+</span>
+</div>
+</div>
+</div>
+</div>
+<div class="lato-intro-card">
+<div class="lato-image-container">
+<img src="https://panlasangpinoy.com/wp-content/uploads/2016/08/Lato-Sea-Grapes-Salad.jpg" alt="Ensaladang Lato - Filipino sea grape salad" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #0f3d2e 0%, #1a5c45 50%, #0d3326 100%)';">
+<div class="lato-image-badge">
+<i class="fas fa-utensils"></i>
+<span>From the Ocean to Your Table</span>
+</div>
+<div class="lato-image-caption">Ensaladang Lato — a beloved Filipino dish made from sea grapes (lato), a marine algae harvested from coastal waters.</div>
+</div>
+<div class="lato-content">
+<div class="lato-eyebrow">
+<i class="fas fa-seedling"></i>
+<span>Introduction to Photosynthesis</span>
+</div>
+<h2 class="lato-title">
+Have you ever wondered where the key ingredient of <span class="highlight-word">Ensaladang Lato</span> comes from?
+</h2>
+<p class="lato-text">
+This beloved Filipino dish traces back to the ocean, where <strong>sea grapes</strong> are grown. It reveals that the food that we eat comes directly or indirectly from plants — making them the global kitchen that 'eat' sunlight and carbon dioxide to produce their own food and food for the whole world.
+</p>
+<p class="lato-text">
+This remarkable process is called <em>Photosynthesis</em>. The word '<strong>photo</strong>' means light, and the '<strong>synthesis</strong>' means to build something. Through this scientific process, light energy is captured and used to convert water, carbon dioxide, and minerals into oxygen and energy-rich organic compounds.
+</p>
+<div class="lato-citation">
+<i class="fas fa-book-open" style="margin-right: 0.4rem; font-size: 0.7rem;"></i>
+Bassham, J. A. (2026). <em>The Path of Carbon in Photosynthesis</em>.
+</div>
+<div class="lato-divider"></div>
+<div class="lato-final-paragraph">
+At the heart of this process is <strong>sunlight</strong>, which provides the essential energy needed to power the chemical reactions for growth and development of plants. Thus, the sun is more than a source of light; it is the ocean's engine, powering the processes that help sustain life below water.
+</div>
+</div>
+</div>
+<div class="content-section" style="border-color: rgba(74, 222, 128, 0.12);">
+<div class="content-header">
+<div class="content-indicator" style="background: #4ade80; color: #4ade80;"></div>
+<h2 class="content-title">The Six Stages of Photosynthesis</h2>
+</div>
+<p class="content-description">
+Journey through the six key stages that make photosynthesis possible — and discover how they connect to the health of our oceans.
+</p>
+</div>
+<div class="bio-section-card" style="--section-accent: #fbbf24; --section-accent-dark: #d97706;">
+<div class="bio-section-header">
+<div class="bio-section-number" style="background: linear-gradient(135deg, #fbbf24, #d97706); box-shadow: 0 0 30px #fbbf24;">1</div>
+<div class="bio-section-title-block">
+<h3 class="bio-section-title"><span class="bio-section-emoji">☀️</span> The Sun: The Beginning of Ocean Energy</h3>
+<div class="bio-section-subtitle">Introduction to Photosynthesis</div>
+</div>
+</div>
+<h4 class="bio-subsection-title">1. Where Does Ocean Energy Begin?</h4>
+<p class="bio-text">Every day, sunlight travels through the ocean's surface, illuminating the waters where many marine organisms live. This light is more than a source of brightness: it provides the energy needed for <strong>photosynthesis</strong>, the process through which organisms use light to produce energy-rich organic compounds. In most sunlit marine ecosystems, this process begins a chain of energy transfers that supports life throughout the ocean.</p>
+<h4 class="bio-subsection-title">2. Meet the Tiny Producers Behind a Vast Ecosystem</h4>
+<div class="bio-image-container">
+<img src="https://livingstations.wdka.nl/wp-content/uploads/2020/04/phytoplankton.jpg" alt="Phytoplankton" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #0f3d2e 0%, #1a5c45 100%)'; this.parentElement.style.height='200px';">
+<div class="bio-image-caption">Phytoplankton — microscopic, photosynthetic organisms that drift in sunlit water. Source: <a href="https://livingstations.wdka.nl/blog/2020/04/30/what-are-phytoplankton/" target="_blank">Living Stations</a></div>
+</div>
+<p class="bio-text">The ocean's most important producers are not always the ones we can see. <strong>Phytoplankton</strong> are microscopic, photosynthetic organisms that drift in sunlit water. Along with larger algae and seagrasses, they capture sunlight and use it to make organic matter from carbon dioxide and water. This process also releases oxygen. Although individually tiny, these producers collectively support a remarkable variety of marine life.</p>
+<h4 class="bio-subsection-title">3. From Light Energy to Chemical Energy</h4>
+<p class="bio-text">Photosynthesis converts light energy into chemical energy stored in organic molecules, such as sugars. To do this, photosynthetic organisms use light, water, and carbon dioxide. The stored energy and organic matter help them grow and become a food source for other organisms. In this way, energy captured from sunlight enters the living components of the marine ecosystem.</p>
+<div class="bio-energy-flow">
+<div class="bio-energy-step">Sunlight</div>
+<div class="bio-energy-arrow"><span>→</span></div>
+<div class="bio-energy-step">Photosynthesis</div>
+<div class="bio-energy-arrow"><span>→</span></div>
+<div class="bio-energy-step">Chemical Energy</div>
+</div>
+<p class="bio-text">This transformation occurs through two main processes:</p>
+<ul class="bio-process-list">
+<li><span class="process-num">1</span><span><strong>Light-Dependent Reactions</strong> — Chlorophyll captures sunlight, converting its energy into ATP and NADPH while releasing oxygen from water.</span></li>
+<li><span class="process-num">2</span><span><strong>Calvin Cycle</strong> — ATP and NADPH provide the energy and electrons needed to incorporate CO₂ into organic molecules that can be used to form sugars (OpenStax, 2018).</span></li>
+</ul>
+<div class="bio-sdg-connection">
+<div class="bio-sdg-icon"><i class="fas fa-globe-americas"></i></div>
+<div class="bio-sdg-text">
+<strong>Connection to SDG 14: Life Below Water</strong> — Marine producers, such as phytoplankton and algae, convert solar energy into organic matter. When consumed by other organisms, this stored chemical energy moves through marine food webs, supporting organisms from zooplankton to larger predators (NOAA, n.d.).
+</div>
+</div>
+<div class="bio-key-concept">
+<div class="bio-key-concept-label"><i class="fas fa-lightbulb"></i> Key Concept</div>
+<div class="bio-key-concept-text">Photosynthesis allows energy from sunlight to enter marine ecosystems, providing the foundation for aquatic food chains.</div>
+</div>
+<h4 class="bio-subsection-title">4. Follow the Energy Through the Food Web</h4>
+<div class="bio-image-container">
+<img src="https://wiseoceans.com/wp-content/uploads/2021/03/wise-oceans-plankton-food-web.jpg" alt="Marine Food Web" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #0f3d2e 0%, #1a5c45 100%)'; this.parentElement.style.height='200px';">
+<div class="bio-image-caption">Marine food web showing energy flow from phytoplankton to apex predators. Source: <a href="https://wiseoceans.com/tiny-but-mighty-the-secret-life-of-plankton/" target="_blank">Wise Oceans</a></div>
+</div>
+<p class="bio-text">The energy captured by producers can move from one organism to another as organisms feed on each other. First, phytoplankton capture sunlight and convert it into chemical energy through photosynthesis. Next, zooplankton obtain this energy by feeding on phytoplankton. Small fish then gain energy by eating zooplankton and other small organisms, while larger predators obtain energy by consuming smaller animals. However, not all the energy is transferred to the next level, because organisms use much of it for their life processes, and some is lost as heat. This is why energy becomes less available at higher levels of the food web. Ultimately, sunlight provides the energy that sustains many marine organisms and helps maintain the balance of ocean ecosystems.</p>
+<h4 class="bio-subsection-title">5. Why Does This Matter?</h4>
+<p class="bio-text">Marine producers form the foundation of many ocean food webs. When their productivity changes, the availability of food and energy for other organisms can change as well. Phytoplankton also contribute substantially to Earth's oxygen production. Understanding photosynthesis therefore helps us appreciate the connections between microscopic life, marine biodiversity, and the health of our planet.</p>
+<div class="bio-quote-box">
+<i class="fas fa-sun" style="margin-right: 0.5rem;"></i>
+Every Ocean Story Begins With Energy — From a single ray of sunlight to a complex web of life, photosynthesis connects the sun to the sea.
+</div>
+<div class="bio-sources">
+<div class="bio-sources-title"><i class="fas fa-book-open"></i> Sources</div>
+<ul class="bio-sources-list">
+<li><a href="https://livingstations.wdka.nl/blog/2020/04/30/what-are-phytoplankton/" target="_blank">Living Stations — What are Phytoplankton?</a></li>
+<li><a href="https://wiseoceans.com/tiny-but-mighty-the-secret-life-of-plankton/" target="_blank">Wise Oceans — Tiny but Mighty: The Secret Life of Plankton</a></li>
+<li><a href="https://education.nationalgeographic.org/resource/photosynthesis/" target="_blank">National Geographic — Photosynthesis</a></li>
+<li><a href="https://oceanservice.noaa.gov/facts/phyto.html" target="_blank">NOAA — Phytoplankton Facts</a></li>
+<li><a href="https://www.sciencelearn.org.nz/resources/143-marine-food-webs" target="_blank">Science Learning Hub — Marine Food Webs</a></li>
+<li><a href="https://www.goodrx.com/health-topic/environmental/benefits-of-sunlight" target="_blank">GoodRx — Benefits of Sunlight</a></li>
+<li>OpenStax. (2018). Biology 2e: Chapter 8 – Photosynthesis. <a href="https://openstax.org/books/biology-2e/pages/8-introduction" target="_blank">https://openstax.org/books/biology-2e/pages/8-introduction</a></li>
+<li>NOAA. (n.d.). Aquatic food webs. <a href="https://www.noaa.gov/education/resource-collections/marine-life/aquatic-food-webs" target="_blank">https://www.noaa.gov/education/resource-collections/marine-life/aquatic-food-webs</a></li>
+</ul>
+</div>
+</div>
+<div class="bio-section-card" style="--section-accent: #fde047; --section-accent-dark: #eab308;">
+<div class="bio-section-header">
+<div class="bio-section-number" style="background: linear-gradient(135deg, #fde047, #eab308); box-shadow: 0 0 30px #fde047;">2</div>
+<div class="bio-section-title-block">
+<h3 class="bio-section-title"><span class="bio-section-emoji">🌱</span> The Light-Dependent Reactions: Capturing Sunlight</h3>
+<div class="bio-section-subtitle">How Light Energy Becomes Chemical Energy</div>
+</div>
+</div>
+<p class="bio-text">The light-dependent reactions occur in the <strong>thylakoid membranes</strong> of chloroplasts, where chlorophyll absorbs sunlight and excites electrons in the photosystems. In <strong>photosystem II</strong>, water molecules undergo photolysis, which releases electrons, hydrogen ions, and oxygen as a by-product. The energized electrons pass through the electron transport chain, helping establish a proton gradient that drives ATP production. In <strong>photosystem I</strong>, light re-energizes the electrons, which are then used to reduce NADP⁺ to NADPH. The ATP and NADPH produced provide the energy and reducing power needed for the Calvin cycle to synthesize carbohydrates (Clark et al., 2018; Khan Academy, n.d.).</p>
+<div class="bio-image-container">
+<img src="https://openstax.org/books/biology-2e/pages/8-3-the-light-dependent-reactions-of-photosynthesis" alt="Light-Dependent Reactions Diagram" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #fde047 0%, #eab308 100%)'; this.parentElement.style.height='200px';">
+<div class="bio-image-caption">Source: 8.3: The Light-Dependent Reactions of Photosynthesis — Biology LibreTexts</div>
+</div>
+<div class="bio-key-concept">
+<div class="bio-key-concept-label"><i class="fas fa-lightbulb"></i> Key Concept</div>
+<div class="bio-key-concept-text">Light energy is converted into chemical energy stored in <strong>ATP</strong> and <strong>NADPH</strong>, which are used in the next stage of photosynthesis.</div>
+</div>
+<div class="bio-sdg-connection">
+<div class="bio-sdg-icon"><i class="fas fa-globe-americas"></i></div>
+<div class="bio-sdg-text">
+<strong>Connection to SDG 14:</strong> Phytoplankton and other photosynthetic marine organisms contribute to oxygen production and help sustain ocean food webs. Protecting marine ecosystems helps preserve the organisms responsible for these essential processes.
+</div>
+</div>
+<div class="bio-sources">
+<div class="bio-sources-title"><i class="fas fa-book-open"></i> References</div>
+<ul class="bio-sources-list">
+<li>8.2 The Light-Dependent Reactions of Photosynthesis — Biology 2e | OpenStax</li>
+<li><a href="https://www.khanacademy.org/science/biology/photosynthesis-in-plants/the-light-dependent-reactions-of-photosynthesis/a/light-dependent-reactions" target="_blank">Light-dependent reactions (photosynthesis reaction) | Khan Academy</a></li>
+</ul>
+</div>
+</div>
+<div class="bio-section-card" style="--section-accent: #22c55e; --section-accent-dark: #16a34a;">
+<div class="bio-section-header">
+<div class="bio-section-number" style="background: linear-gradient(135deg, #22c55e, #16a34a); box-shadow: 0 0 30px #22c55e;">3</div>
+<div class="bio-section-title-block">
+<h3 class="bio-section-title"><span class="bio-section-emoji">🌿</span> The Light-Independent Reactions: Building the Foundation of Life</h3>
+<div class="bio-section-subtitle">The Calvin Cycle</div>
+</div>
+</div>
+<div class="bio-section-intro">
+Turning Carbon into the Building Blocks of Life — where invisible CO₂ becomes the sugars that feed the planet.
+</div>
+<p class="bio-text">The Calvin cycle (light-independent reactions) takes place in the <strong>stroma</strong> of chloroplasts. Using ATP and NADPH from the light reactions, it converts <strong>CO₂</strong> into <strong>G3P</strong> (glyceraldehyde-3-phosphate), a 3-carbon sugar.</p>
+<div class="bio-energy-flow">
+<div class="bio-energy-step" style="background: rgba(34, 197, 94, 0.15); border-color: rgba(34, 197, 94, 0.3); color: #22c55e;">Carbon Fixation</div>
+<div class="bio-energy-arrow"><span>→</span></div>
+<div class="bio-energy-step" style="background: rgba(34, 197, 94, 0.15); border-color: rgba(34, 197, 94, 0.3); color: #22c55e;">Reduction</div>
+<div class="bio-energy-arrow"><span>→</span></div>
+<div class="bio-energy-step" style="background: rgba(34, 197, 94, 0.15); border-color: rgba(34, 197, 94, 0.3); color: #22c55e;">Regeneration</div>
+</div>
+<div class="bio-key-concept">
+<div class="bio-key-concept-label"><i class="fas fa-lightbulb"></i> Key Concept</div>
+<div class="bio-key-concept-text">The Calvin cycle uses ATP and NADPH from the light-dependent reactions to help convert carbon dioxide into organic molecules.</div>
+</div>
+<div class="bio-sdg-connection">
+<div class="bio-sdg-icon"><i class="fas fa-globe-americas"></i></div>
+<div class="bio-sdg-text">
+<strong>Connection to SDG 14:</strong> Marine photosynthetic organisms use carbon dioxide to produce organic matter, supporting marine food webs and contributing to ocean carbon cycling.
+</div>
+</div>
+</div>
+<div class="bio-section-card" style="--section-accent: #f59e0b; --section-accent-dark: #d97706;">
+<div class="bio-section-header">
+<div class="bio-section-number" style="background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 0 30px #f59e0b;">4</div>
+<div class="bio-section-title-block">
+<h3 class="bio-section-title"><span class="bio-section-emoji"></span> The ATP-ADP Cycle: Fueling Life Beneath the Waves</h3>
+<div class="bio-section-subtitle">How Cells Transfer and Reuse Energy</div>
+</div>
+</div>
+<p class="bio-text">In the intricate theater of life, cellular processes hum with constant activity. From the microscopic swimming of marine flagellates to the metabolic machinery keeping complex marine and terrestrial organisms alive, every action requires a dependable power source. Just as human societies rely on economic currency to trade and build, biological systems rely on a universal molecular currency known as <strong>Adenosine Triphosphate (ATP)</strong>. Understanding the flow of this biological energy reveals how life sustains itself, mirroring the balance and cyclical efficiency necessary to safeguard marine ecosystems under SDG 14.</p>
+<p class="bio-text">Structurally, ATP is an RNA nucleotide composed of a five-carbon ribose sugar attached to a nitrogenous adenine base and a chain of three phosphate groups labeled alpha, beta, and gamma. Because these three adjacent phosphate groups carry dense negative charges, they strongly repel one another, placing the molecule under significant structural tension. The bonds holding these phosphate groups together contain significant potential energy ready to be harvested by the cell.</p>
+<div class="bio-image-container">
+<img src="https://www.biologyonline.com/tutorials/biological-energy-adp-atp" alt="ATP-ADP Cycle" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #f59e0b 0%, #d97706 100%)'; this.parentElement.style.height='200px';">
+<div class="bio-image-caption">Image: <a href="https://www.biologyonline.com/tutorials/biological-energy-adp-atp" target="_blank">Biology Online — Biological Energy: ADP & ATP</a></div>
+</div>
+<p class="bio-text">When a cell requires energy to perform biological work, it triggers a water-mediated reaction called <strong>hydrolysis</strong> to break the bond connecting the outermost phosphate group. This terminal phosphate is then released as inorganic phosphate, reducing the three-phosphate ATP molecule down to a two-phosphate molecule known as <strong>Adenosine Diphosphate (ADP)</strong>. Breaking this high-energy molecular bond releases free energy that powers essential biological activities, preventing cellular machinery from grinding to a halt.</p>
+<p class="bio-text">Because living cells consume ATP molecules rapidly and continuously, energy reserves must be replenished at an equally demanding pace. This balance is maintained through the <strong>ATP-ADP cycle</strong>, which operates much like a rechargeable battery. While the breakdown of ATP into ADP discharges stored energy for immediate use, cellular respiration recharges the system by breaking down glucose derived from ingested nutrients or produced through photosynthesis to enable the ATP synthase to reattach inorganic phosphate back onto ADP.</p>
+<div class="bio-energy-flow">
+<div class="bio-energy-step" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.3); color: #f59e0b;">ATP</div>
+<div class="bio-energy-arrow"><span>releases energy</span><i class="fas fa-arrow-right"></i></div>
+<div class="bio-energy-step" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.3); color: #f59e0b;">ADP + Pᵢ</div>
+<div class="bio-energy-arrow"><span>regenerates</span><i class="fas fa-arrow-right"></i></div>
+<div class="bio-energy-step" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.3); color: #f59e0b;">ATP</div>
+</div>
+<p class="bio-text">Cells channel this harvested energy into biological processes through a mechanism known as <strong>energy coupling and transfer</strong>. In this strategy, the energy-releasing hydrolysis of ATP is directly linked with an energy-requiring reaction that would otherwise be thermodynamically unfavorable. Typically, this occurs through phosphorylation, where the phosphate group detached from ATP is temporarily transferred to a target molecule or protein, creating an unstable, high-energy intermediate that can spontaneously complete a reaction, synthesize complex molecules like sugars, or alter protein shapes to transport ions across membranes. Hence, from powering the swimming mechanics of pelagic species to supporting the bioenergetic resilience of coral reefs against environmental shifts, the fundamental ATP-ADP cycle remains the molecular engine sustaining life beneath the surface.</p>
+<div class="bio-key-concept">
+<div class="bio-key-concept-label"><i class="fas fa-lightbulb"></i> Key Concept</div>
+<div class="bio-key-concept-text">ATP acts as a short-term energy carrier in cells. When ATP is converted into ADP and phosphate, energy can be transferred to cellular processes that need it. Remember that ATP is not simply a storage molecule that releases energy on its own — its hydrolysis is <strong>coupled</strong> to cellular reactions.</div>
+</div>
+<div class="bio-sdg-connection">
+<div class="bio-sdg-icon"><i class="fas fa-globe-americas"></i></div>
+<div class="bio-sdg-text">
+<strong>Connection to SDG 14:</strong> Marine organisms depend on energy transfer at the cellular level to grow, move, reproduce, and carry out essential biological functions. These processes help sustain the marine ecosystems that SDG 14 seeks to protect.
+</div>
+</div>
+<div class="bio-sources">
+<div class="bio-sources-title"><i class="fas fa-book-open"></i> Sources</div>
+<ul class="bio-sources-list">
+<li><a href="https://www.biologyonline.com/tutorials/biological-energy-adp-atp" target="_blank">Biology Online — Biological Energy: ADP & ATP</a></li>
+<li><a href="https://www.khanacademy.org/science/biology/energy-and-enzymes/atp-reaction-coupling/a/atp-and-reaction-coupling" target="_blank">Khan Academy — ATP and Reaction Coupling</a></li>
+</ul>
+</div>
+</div>
+<div class="bio-section-card" style="--section-accent: #a78bfa; --section-accent-dark: #7c3aed;">
+<div class="bio-section-header">
+<div class="bio-section-number" style="background: linear-gradient(135deg, #a78bfa, #7c3aed); box-shadow: 0 0 30px #a78bfa;">5</div>
+<div class="bio-section-title-block">
+<h3 class="bio-section-title"><span class="bio-section-emoji"></span> The Electron Transport Chain: The Ocean's Invisible Current</h3>
+<div class="bio-section-subtitle">Connecting Photosynthesis to Cellular Energy</div>
+</div>
+</div>
+<h4 class="bio-subsection-title">What Is the Electron Transport Chain?</h4>
+<p class="bio-text">Deep inside every photosynthetic cell, an invisible current is at work. The <strong>electron transport chain (ETC)</strong> is a series of protein complexes and carrier molecules embedded in the thylakoid membranes of chloroplasts, the same membranes where the light-dependent reactions take place. When chlorophyll in photosystem II absorbs sunlight, its electrons are excited to a higher energy level, and these high-energy electrons are passed one at a time from carrier to carrier along the chain (OpenStax, 2018).</p>
+<h4 class="bio-subsection-title">How the Gradient Powers ATP Production</h4>
+<p class="bio-text">As electrons travel through the chain, their energy is used to pump hydrogen ions (protons) from the stroma into the thylakoid lumen, creating a steep concentration gradient. The splitting of water at photosystem II also adds protons to the lumen, making the gradient even stronger. Protons can only flow back into the stroma through a channel protein called <strong>ATP synthase</strong>, and this flow, known as <strong>chemiosmosis</strong>, drives the enzyme to produce ATP. Meanwhile, photosystem I receives the electrons and re-energizes them with another photon of light before an enzyme passes them to NADP⁺, forming NADPH, the second energy carrier that will fuel the Calvin cycle (OpenStax, 2018; Khan Academy, n.d.).</p>
+<h4 class="bio-subsection-title">Two Chains, One Design</h4>
+<p class="bio-text">The photosynthetic ETC is not the only one in biology. Cellular respiration in mitochondria also uses an electron transport chain to pump protons and power ATP synthase. The difference lies in where they work and what they accomplish: the photosynthetic ETC captures light energy to build energy carriers and produce oxygen, while the mitochondrial ETC breaks down sugars to release stored energy for the cell's daily work. Both, however, rely on the same elegant principle of electron flow and proton gradients to produce ATP (OpenStax, 2018).</p>
+<div class="bio-image-container">
+<img src="https://openstax.org/books/biology-2e/pages/8-2-the-light-dependent-reactions-of-photosynthesis" alt="ETC Diagram" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%)'; this.parentElement.style.height='200px';">
+<div class="bio-image-caption">Image: <a href="https://openstax.org/books/biology-2e/pages/8-2-the-light-dependent-reactions-of-photosynthesis" target="_blank">OpenStax Biology 2e — Light-Dependent Reactions</a></div>
+</div>
+<div class="bio-key-concept">
+<div class="bio-key-concept-label"><i class="fas fa-lightbulb"></i> Key Concept</div>
+<div class="bio-key-concept-text">Both photosynthesis and cellular respiration use electron transport and proton gradients to help produce ATP, but they occur in different cellular structures and serve different roles.</div>
+</div>
+<div class="bio-sdg-connection">
+<div class="bio-sdg-icon"><i class="fas fa-globe-americas"></i></div>
+<div class="bio-sdg-text">
+<strong>Connection to SDG 14:</strong> Understanding how marine organisms obtain and use energy helps explain why healthy ocean ecosystems depend on the survival of organisms at every level of the food web.
+</div>
+</div>
+<div class="bio-sources">
+<div class="bio-sources-title"><i class="fas fa-book-open"></i> Sources</div>
+<ul class="bio-sources-list">
+<li><a href="https://openstax.org/books/biology-2e/pages/8-2-the-light-dependent-reactions-of-photosynthesis" target="_blank">OpenStax Biology 2e — Light-Dependent Reactions</a></li>
+<li><a href="https://www.khanacademy.org/science/biology/photosynthesis-in-plants/the-light-dependent-reactions-of-photosynthesis/v/photosynthesis-light-reactions-1" target="_blank">Khan Academy — Photosynthesis: Overview of the light-dependent reactions</a></li>
+</ul>
+</div>
+</div>
+<div class="bio-section-card" style="--section-accent: #22d3ee; --section-accent-dark: #0891b2;">
+<div class="bio-section-header">
+<div class="bio-section-number" style="background: linear-gradient(135deg, #22d3ee, #0891b2); box-shadow: 0 0 30px #22d3ee;">6</div>
+<div class="bio-section-title-block">
+<h3 class="bio-section-title"><span class="bio-section-emoji">🐠</span> From Cellular Energy to Ocean Ecosystems</h3>
+<div class="bio-section-subtitle">One Tiny Cell, One Living Ocean</div>
+</div>
+</div>
+<h4 class="bio-subsection-title">Why These Processes Matter for Marine Life</h4>
+<p class="bio-text">Every ocean process described above comes together at the ecosystem level. <strong>Phytoplankton</strong>, the microscopic drifting algae of the sunlit surface ocean, capture sunlight with their chlorophyll and use photosynthesis to convert carbon dioxide and water into organic matter and oxygen, forming the base of nearly all marine food webs (NOAA Fisheries, n.d.). When zooplankton graze on phytoplankton, and small fish, larger predators, and apex animals like whales feed in turn, the chemical energy first captured from sunlight moves step by step through the entire marine food web (NOAA, n.d.).</p>
+<h4 class="bio-subsection-title">The Ocean's Carbon and Oxygen Cycles</h4>
+<p class="bio-text">These cellular processes operate on a planetary scale. Scientists estimate that roughly <strong>half of the oxygen production on Earth</strong> comes from the ocean, and the majority of it comes from oceanic plankton (NOAA Ocean Service, n.d.). Through photosynthesis, phytoplankton consume carbon dioxide on a scale comparable to forests and other land plants, and some of that carbon is carried to the deep ocean when the organisms die and sink, a movement of carbon known as the <strong>biological carbon pump</strong> (NASA, 2010). At the same time, cellular respiration in marine organisms consumes oxygen and releases carbon dioxide back into the water, so the two processes work together to keep the ocean's carbon and oxygen cycles in balance.</p>
+<h4 class="bio-subsection-title">Protecting the Foundation</h4>
+<p class="bio-text">Yet this entire system is fragile. Pollution, habitat destruction, and climate change threaten phytoplankton productivity and the food webs built on it; models predict that as ocean surface waters warm, phytoplankton productivity may decline (NASA, 2010). Because every level of the marine food web ultimately depends on these microscopic producers, protecting marine habitats means protecting the interconnected organisms and environmental processes that allow ocean ecosystems to function. Caring for life below water begins with caring for the smallest engines of the sea.</p>
+<div class="bio-sdg-connection" style="background: linear-gradient(135deg, rgba(34, 211, 238, 0.12) 0%, rgba(6, 182, 212, 0.06) 100%); border-color: rgba(34, 211, 238, 0.3); border-left-color: #22d3ee;">
+<div class="bio-sdg-icon" style="background: rgba(34, 211, 238, 0.2);"><i class="fas fa-globe-americas"></i></div>
+<div class="bio-sdg-text">
+<strong>Connection to SDG 14:</strong> Protecting life below water means protecting the interconnected organisms and environmental processes that allow marine ecosystems to function.
+</div>
+</div>
+<div class="bio-sources">
+<div class="bio-sources-title"><i class="fas fa-book-open"></i> Sources</div>
+<ul class="bio-sources-list">
+<li><a href="https://www.noaa.gov/education/resource-collections/marine-life/aquatic-food-webs" target="_blank">NOAA — Aquatic Food Webs</a></li>
+<li><a href="https://www.fisheries.noaa.gov/west-coast/science-data/phytoplankton-northwest-us-shelf-ecosystem" target="_blank">NOAA Fisheries — Phytoplankton in the Northwest U.S. Shelf Ecosystem</a></li>
+<li><a href="https://oceanservice.noaa.gov/facts/ocean-oxygen.html" target="_blank">NOAA Ocean Service — Ocean Oxygen Facts</a></li>
+<li><a href="https://science.nasa.gov/earth/earth-observatory/what-are-phytoplankton/" target="_blank">NASA — What are Phytoplankton?</a></li>
+</ul>
+</div>
+</div>
+`;
+}
+
+function renderPhysics() {
+return `
+<div class="report-container">
+<div class="report-header">
+<h1 class="report-title">Technical Report</h1>
+<p class="report-subtitle">Simulation Analysis of High Elevation Water Tank for La Salle Academy Junior High School Building</p>
+<div class="report-meta">
+<div class="report-meta-item">
+<i class="fas fa-user"></i>
+<span>[Author Name]</span>
+</div>
+<div class="report-meta-item">
+<i class="fas fa-calendar"></i>
+<span>September 18, 2026</span>
+</div>
+<div class="report-meta-item">
+<i class="fas fa-circle"></i>
+<span>Physics, MIL, EAPP</span>
+</div>
+</div>
+</div>
+<div class="report-section">
+<div class="report-section-header">
+<div class="report-section-number">1</div>
+<h2 class="report-section-title">INTRODUCTION</h2>
+</div>
+<div class="report-placeholder-dark">
+<p>Water is essential for the daily operations of La Salle Academy, particularly for drinking, sanitation, cleaning, and other school activities. However, the Junior High School building experiences a water distribution problem because water cannot reliably reach the fourth floor. The cause, however, cannot be confirmed by the PhET model alone because it does not reproduce the school's complete plumbing network.
+To examine a possible improvement, the team used PhET Fluid Pressure and Flow to observe the pressure shown inside a water tank and the velocity of water exiting a side hole. The simulation did not allow the team to set the water-surface height above the outlet to the selected values used in the report's calculations. Therefore, PhET served as a qualitative illustration of fluid pressure and outlet flow, while the height-based pressure, energy, and power estimates were calculated separately. The report provides a preliminary assessment; actual installation feasibility also depends on site-specific plumbing and demand data, pump performance, pressure-surge protection, and professional assessment of the roof's load capacity.</p>
+</div>
+</div>
+<div class="report-section">
+<div class="report-section-header">
+<div class="report-section-number">2</div>
+<h2 class="report-section-title">OBJECTIVES</h2>
+</div>
+<p class="report-text"><strong>General Objective:</strong> The objective of the study was to evaluate the potential effectiveness and feasibility of installing an elevated rooftop water storage tank to improve water delivery to the fourth-floor restrooms of La Salle Academy. Specifically, the study aims to:</p>
+<p class="report-text"><strong>Specific Objectives:</strong></p>
+<ul class="report-list">
+<li><i class="fas fa-bullseye"></i><span><strong>Objective 1:</strong> Observe the pressure inside the simulated tank and the velocity of water exiting a side hole, while treating the selected height values as separate theoretical calculation scenarios;</span></li>
+<li><i class="fas fa-bullseye"></i><span><strong>Objective 2:</strong> Apply hydrostatic pressure, conservation of energy, work and power, fluid momentum, and rotational-motion principles where pump data were available to interpret the simulation observations and supporting calculations; and</span></li>
+<li><i class="fas fa-bullseye"></i><span><strong>Objective 3:</strong> Evaluate the proposal's preliminary feasibility using the calculated pressure and energy estimates, while identifying structural and plumbing factors requiring separate verification.</span></li>
+</ul>
+</div>
+<div class="report-section">
+<div class="report-section-header">
+<div class="report-section-number">3</div>
+<h2 class="report-section-title">METHODOLOGY</h2>
+</div>
+<div class="flowchart-container">
+<div class="flowchart-grid">
+<div class="flow-box" style="position: relative;">
+Listing of Measurements and Variables
+<i class="fas fa-arrow-right flow-arrow-right"></i>
+</div>
+<div class="flow-box" style="position: relative;">
+Simulation Using PhET
+<i class="fas fa-arrow-down flow-arrow-down"></i>
+</div>
+<div class="flow-box" style="grid-column: 2; position: relative;">
+Gathering of Simulation Data
+<i class="fas fa-arrow-left flow-arrow-left"></i>
+</div>
+<div class="flow-box" style="position: relative;">
+Applying Physics Principles and Analyzing Data
+<i class="fas fa-arrow-down flow-arrow-down"></i>
+</div>
+<div class="flow-box flow-box-wide">
+Comparing Results and Determining Feasibility
+</div>
+</div>
+<div class="flowchart-caption">Figure 1: Simulation Analysis Process</div>
+</div>
+<div class="report-subsection">
+<h3 class="report-subsection-title">Listing of Measurements</h3>
+<div class="report-placeholder-dark">
+<p>The team recorded the water-surface height above the outlet, the selected water volume, the filling-time reference, and the assumed efficiency. The selected heights were 2.20 m, 1.10 m, and 0.55 m; the volume was held at 2.00 m³. Using the pump listing's nominal flow rate of 17 m³/h, the ideal filling-time reference was recalculated as 423.5 s (7.06 min) for 2.00 m³. This same reference time was used across the trials; efficiency values of 90%, 80%, and 70% were retained as separate illustrative scenarios for input-power calculations.</p>
+</div>
+</div>
+<div class="report-subsection">
+<h3 class="report-subsection-title">Table 1: Parameters of the Simulation Analysis</h3>
+<div class="report-table-wrapper">
+<table class="report-table">
+<thead>
+<tr>
+<th>Input</th>
+<th>Symbol / unit</th>
+<th>Value used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Water-surface height above outlet</td>
+<td><em>h</em> or Δ<em>z</em> (m)</td>
+<td>2.2, 1.1, 0.55</td>
+</tr>
+<tr>
+<td>Water volume</td>
+<td><em>V</em> (m³)</td>
+<td>2.00 for all trials</td>
+</tr>
+<tr>
+<td>Filling time</td>
+<td><em>t</em> (s)</td>
+<td>423.5 s (7.06 min)</td>
+</tr>
+<tr>
+<td>Assumed pump efficiency</td>
+<td>η (%)</td>
+<td>90, 80, 70</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="report-subsection">
+<h3 class="report-subsection-title">Simulation Using PhET</h3>
+<p class="report-text">The team used PhET Fluid Pressure and Flow to observe the pressure indication inside the tank and the velocity of water leaving a side hole with the simulation's available controls. The simulation did not allow the team to directly set and test h = 0.55 m, 1.10 m, and 2.20 m as controlled scenarios. Thus, PhET did not generate a direct comparison of the three height values or simulate the school's complete tank, pump, and plumbing arrangement. Its contribution was qualitative: it helped visualize pressure in the tank and the motion of water exiting the hole (PhET Interactive Simulations, n.d.).
+No numerical PhET readings were transcribed into the report's dataset. Therefore, Table 3 contains theoretical calculations from the stated inputs, not measured simulation results. The simulation observations support the explanation of fluid behavior but do not independently validate the calculated pressure values or establish the flow available at the school's fourth-floor restroom.</p>
+<div class="report-figure">
+<div class="report-figure-placeholder">
+<i class="fas fa-desktop" style="font-size: 3rem; color: rgba(139, 92, 246, 0.4);"></i>
+</div>
+<p class="report-figure-caption">Figure 2: PhET Simulation Interface Screenshot</p>
+</div>
+</div>
+<div class="report-subsection">
+<h3 class="report-subsection-title">Pump Reference and Filling-Time Check</h3>
+<p class="report-text">For reference, the supplier lists the Grundfos CR 15-5 pump (product no. 96501908) at a nominal flow of 17 m³/h and nominal head of 55.4 m (Profluid GmbH, n.d.). These are catalogue specifications, not measured school performance. The ideal fill time is t = V/Q = 2.00 m³ ÷ 17 m³/h = 423.5 s (7.06 min); filling the same volume in four minutes would require 30 m³/h. All trials use 423.5 s as a common reference, while η = 90%, 80%, and 70% are illustrative assumptions for input-power estimates. Actual filling time depends on the pump's flow at the installed system head and losses.</p>
+<p class="report-text">The calculation values for each trial are listed in Table 2:</p>
+</div>
+<div class="report-subsection">
+<h3 class="report-subsection-title">Table 2: Input Parameters by Trial</h3>
+<div class="report-table-wrapper">
+<table class="report-table">
+<thead>
+<tr>
+<th>Trials</th>
+<th>Height <em>h</em> (m)</th>
+<th>Water volume <em>V</em> (m³)</th>
+<th>Filling time <em>t</em> (s)</th>
+<th>Pump efficiency η (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr><td><strong>1</strong></td><td>2.2</td><td>2</td><td>423.5</td><td>90</td></tr>
+<tr><td><strong>2</strong></td><td>1.1</td><td>2</td><td>423.5</td><td>90</td></tr>
+<tr><td><strong>3</strong></td><td>0.55</td><td>2</td><td>423.5</td><td>90</td></tr>
+<tr><td><strong>4</strong></td><td>2.2</td><td>2</td><td>423.5</td><td>80</td></tr>
+<tr><td><strong>5</strong></td><td>1.1</td><td>2</td><td>423.5</td><td>80</td></tr>
+<tr><td><strong>6</strong></td><td>0.55</td><td>2</td><td>423.5</td><td>80</td></tr>
+<tr><td><strong>7</strong></td><td>2.2</td><td>2</td><td>423.5</td><td>70</td></tr>
+<tr><td><strong>8</strong></td><td>1.1</td><td>2</td><td>423.5</td><td>70</td></tr>
+<tr><td><strong>9</strong></td><td>0.55</td><td>2</td><td>423.5</td><td>70</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="report-subsection">
+<h3 class="report-subsection-title">Applying Physics Principles</h3>
+<p class="report-text">To establish the baseline parameters of the simulation analysis, the calculations used freshwater density ρ = 1,000 kg/m³ and gravitational acceleration g = 9.81 m/s² as fixed constants, rather than as additional measured parameters. Specifically, the physical variables driving this relation include:</p>
+<p class="report-text"><strong>Hydrostatic pressure.</strong> The ideal pressure difference between the water surface and the outlet was calculated as p = ρgh (Hydrostatic Pressure, 2022). This relationship predicts that a greater water-surface height gives a greater static pressure difference. It does not by itself account for pipe friction or actual demand.</p>
+<p class="report-text"><strong>Water mass and gravitational energy.</strong> The water mass was calculated as m = ρV and its weight as Fg = mg. In the simplified calculation, the selected volume was treated as lifted through height h, giving an idealized gravitational-energy change Eg = mgh = ρVgh (Gravitational Potential Energy | Physics, n.d.). Since h is measured above the outlet, it is not automatically the actual source-to-roof lift or the elevation of the water's centre of mass. Thus, Eg is a reference estimate, not verified pump work, and water weight alone does not establish roof safety.</p>
+<p class="report-text"><strong>Work and power.</strong> The average ideal hydraulic power for the modeled energy transfer over filling time t was estimated as Ph = Eg/t. Using pump efficiency η, the corresponding input-power estimate was Pin = Ph/η, with η converted to a decimal before substitution (Power Formula, 2021). These are idealized estimates; a real pump-sizing calculation would need the actual vertical lift from the source to the tank.</p>
+<div class="report-equation">
+ΔP = ρgh &nbsp;&nbsp;|&nbsp;&nbsp; E<sub>g</sub> = mgh &nbsp;&nbsp;|&nbsp;&nbsp; P<sub>h</sub> = E<sub>g</sub> / t &nbsp;&nbsp;|&nbsp;&nbsp; P<sub>in</sub> = P<sub>h</sub> / η
+</div>
+</div>
+<div class="report-subsection">
+<h3 class="report-subsection-title">Determining Installation Feasibility</h3>
+<p class="report-text">The team assessed whether h produced a useful theoretical pressure difference and whether V, t, and η gave reasonable idealized energy and power estimates. The assessment remains preliminary; actual pump lift, roof capacity, structural suitability, full plumbing performance, and final pump selection require separate verification before installation.</p>
+</div>
+</div>
+<div class="report-section">
+<div class="report-section-header">
+<div class="report-section-number">4</div>
+<h2 class="report-section-title">RESULTS AND DISCUSSION</h2>
+</div>
+<div class="report-subsection">
+<h3 class="report-subsection-title">Objective 1</h3>
+<div class="report-placeholder-dark">
+<p>The PhET simulation demonstrated the relationship between fluid pressure inside a tank and the velocity of water exiting through a side hole. However, since the simulation did not allow the team to change the water-surface height directly, it could not independently verify the pressure differences calculated for the three selected heights. These calculations were therefore used to evaluate the theoretical effect of elevation on water pressure.</p>
+</div>
+</div>
+<div class="report-subsection">
+<h3 class="report-subsection-title">Objective 2</h3>
+<h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: #f1f5f9; margin: 1.5rem 0 0.75rem; padding-left: 1rem; border-left: 3px solid #8b5cf6;">Table 3: Calculated Results</h4>
+<div class="report-table-wrapper">
+<table class="report-table">
+<thead>
+<tr>
+<th>Trials</th>
+<th>Pressure difference Δp (kPa)</th>
+<th>Water mass <em>m</em> (kg)</th>
+<th>Gravitational energy <em>E<sub>g</sub></em> (J)</th>
+<th>Hydraulic power <em>P<sub>h</sub></em> (W)</th>
+<th>Input power <em>P<sub>in</sub></em> (W)</th>
+</tr>
+</thead>
+<tbody>
+<tr><td><strong>1</strong></td><td>21.582</td><td>2,000</td><td>43,164</td><td>101.92</td><td>113.25</td></tr>
+<tr><td><strong>2</strong></td><td>10.791</td><td>2,000</td><td>21,582</td><td>50.96</td><td>56.62</td></tr>
+<tr><td><strong>3</strong></td><td>5.396</td><td>2,000</td><td>10,791</td><td>25.48</td><td>28.31</td></tr>
+<tr><td><strong>4</strong></td><td>21.582</td><td>2,000</td><td>43,164</td><td>101.92</td><td>127.40</td></tr>
+<tr><td><strong>5</strong></td><td>10.791</td><td>2,000</td><td>21,582</td><td>50.96</td><td>63.70</td></tr>
+<tr><td><strong>6</strong></td><td>5.396</td><td>2,000</td><td>10,791</td><td>25.48</td><td>31.85</td></tr>
+<tr><td><strong>7</strong></td><td>21.582</td><td>2,000</td><td>43,164</td><td>101.92</td><td>145.60</td></tr>
+<tr><td><strong>8</strong></td><td>10.791</td><td>2,000</td><td>21,582</td><td>50.96</td><td>72.80</td></tr>
+<tr><td><strong>9</strong></td><td>5.396</td><td>2,000</td><td>10,791</td><td>25.48</td><td>36.40</td></tr>
+</tbody>
+</table>
+</div>
+<h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: #f1f5f9; margin: 1.5rem 0 0.75rem; padding-left: 1rem; border-left: 3px solid #8b5cf6;">Narrative Finding:</h4>
+<div class="report-placeholder-dark">
+<p>The calculated results show that increasing the water-surface height increases the theoretical pressure difference, gravitational energy, and hydraulic power required to lift the water. At 2.20 m, the pressure difference reached 21.58 kPa, compared with 5.40 kPa at 0.55 m. The results also show that lower pump efficiency requires greater input power to provide the same hydraulic output. These findings support the principle that elevation can improve available water pressure, although actual performance still depends on real plumbing conditions and water demand.</p>
+</div>
+</div>
+<div class="report-subsection">
+<h3 class="report-subsection-title">Objective 3</h3>
+<p class="report-text">The results suggest that an elevated rooftop tank could improve the theoretical water pressure available to the fourth-floor restrooms. However, the installation's feasibility cannot be confirmed through the simulation and calculations alone. Actual plumbing performance, pump operation, water demand, and the roof's structural capacity must be assessed before the proposed system can be considered safe and practical.</p>
+</div>
+</div>
+<div class="report-section">
+<div class="report-section-header">
+<div class="report-section-number">5</div>
+<h2 class="report-section-title">CONCLUSION</h2>
+</div>
+<p class="report-text">The study found that increasing the water-surface height increases the theoretical pressure difference and gravitational potential energy available for water delivery. The calculated pressure difference increased from 5.40 kPa at 0.55 m to 21.58 kPa at 2.20 m, demonstrating the relationship between elevation and hydrostatic pressure. The calculations also showed that lower pump efficiency requires greater input power to provide the same ideal hydraulic output.</p>
+<p class="report-text">The PhET simulation helped illustrate fluid pressure inside a tank and the velocity of water exiting through a side hole. However, because the simulation did not allow the team to directly adjust the selected water-surface heights, it could not independently verify the calculated pressure values or determine the actual performance of the school's plumbing system. The results therefore support the rooftop tank as a potential solution, but do not establish that it will fully resolve the fourth-floor water supply problem. Actual water demand, pump performance, plumbing conditions, and roof structural capacity must be assessed before installation. Overall, the study provides a theoretical basis for further evaluating the proposed system, subject to the necessary engineering checks.</p>
+</div>
+<div class="report-section">
+<div class="report-section-header">
+<div class="report-section-number">6</div>
+<h2 class="report-section-title">RECOMMENDATION</h2>
+</div>
+<p class="report-text">Based on the results of the study, the team made the following recommendations:</p>
+<ul class="report-list">
+<li><i class="fas fa-arrow-right"></i><span>Assess the school's actual water pressure and demand, and verify the pump's operating flow rate and head to determine the appropriate tank height, capacity, and filling requirements.</span></li>
+<li><i class="fas fa-arrow-right"></i><span>Obtain a structural assessment from a qualified professional to determine whether the roof can safely support the tank, its stored water, and supporting structures.</span></li>
+<li><i class="fas fa-arrow-right"></i><span>Evaluate plumbing safety, including pipe pressure limits, potential water-hammer effects, and possible impacts on the existing water supply to other school buildings.</span></li>
+</ul>
+</div>
+<div class="report-section">
+<div class="report-section-header">
+<div class="report-section-number">7</div>
+<h2 class="report-section-title">REFERENCES</h2>
+</div>
+<div class="report-reference">
+<strong>[1]</strong> PhET Interactive Simulations. (n.d.). <em>Fluid Pressure and Flow</em>. University of Colorado Boulder. Retrieved September 18, 2026, from <a href="https://phet.colorado.edu/en/simulations/fluid-pressure-and-flow" target="_blank">https://phet.colorado.edu/en/simulations/fluid-pressure-and-flow</a>
+</div>
+<div class="report-reference">
+<strong>[2]</strong> Lumen Learning. (n.d.). <em>Gravitational Potential Energy | Physics</em>. Retrieved September 18, 2026, from <a href="https://courses.lumenlearning.com/suny-physics/chapter/7-3-gravitational-potential-energy/" target="_blank">https://courses.lumenlearning.com/suny-physics/chapter/7-3-gravitational-potential-energy/</a>
+</div>
+<div class="report-reference">
+<strong>[3]</strong> BYJU'S. (2022, July 29). <em>Hydrostatic pressure</em>. Retrieved September 18, 2026, from <a href="https://byjus.com/physics/hydrostatic-pressure/" target="_blank">https://byjus.com/physics/hydrostatic-pressure/</a>
+</div>
+<div class="report-reference">
+<strong>[4]</strong> Profluid GmbH. (n.d.). <em>Grundfos CR 15-5 A-A-E-HQQE vertical centrifugal pump (product no. 96501908)</em>. Retrieved September 18, 2026, from <a href="https://www.profluid.de/en_US/shop/product/pfg12370-grundfos-cr-15-5-a-a-e-hqqe-vertical-centrifugal-pump-96501908-43123" target="_blank">https://www.profluid.de/en_US/shop/product/pfg12370-grundfos-cr-15-5-a-a-e-hqqe-vertical-centrifugal-pump-96501908-43123</a>
+</div>
+<div class="report-reference">
+<strong>[5]</strong> LibreTexts. (2024, October 1). <em>12.1: Flow Rate and Its Relation to Velocity</em>. Physics LibreTexts. Retrieved September 18, 2026, from <a href="https://phys.libretexts.org/Bookshelves/College_Physics/College_Physics_1e_(OpenStax)/12%3A_Fluid_Dynamics_and_Its_Biological_and_Medical_Applications/12.01%3A_Flow_Rate_and_Its_Relation_to_Velocity" target="_blank">https://phys.libretexts.org/Bookshelves/College_Physics/College_Physics_1e_(OpenStax)/12%3A_Fluid_Dynamics_and_Its_Biological_and_Medical_Applications/12.01%3A_Flow_Rate_and_Its_Relation_to_Velocity</a>
+</div>
+</div>
+</div>
+`;
+}
+
+function renderPlaceholder(title, icon) {
+return `<div class="placeholder-card"><div class="placeholder-icon"><i class="fas ${icon}"></i></div><h2 class="placeholder-title">${title}</h2><p class="placeholder-text">Content for this subject is currently being prepared. Please check back soon for updates and learning materials.</p></div>`;
+}
+
+function setActiveTab(tabId) {
+tabButtons.forEach(btn => btn.classList.remove('active'));
+const activeBtn = document.querySelector(`[data-tab="${tabId}"]`);
+if (activeBtn) activeBtn.classList.add('active');
+const content = tabData[tabId];
+if (!content) return;
+if (content.type === 'home') mainContent.innerHTML = renderHome();
+else if (content.type === 'sdg14') mainContent.innerHTML = renderSDG14();
+else if (content.type === 'biology') mainContent.innerHTML = renderBiology();
+else if (content.type === 'physics') mainContent.innerHTML = renderPhysics();
+else if (content.type === 'placeholder') mainContent.innerHTML = renderPlaceholder(content.title, content.icon);
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+tabButtons.forEach(button => {
+button.addEventListener('click', (e) => {
+e.preventDefault();
+const tabId = button.getAttribute('data-tab');
+setActiveTab(tabId);
+});
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+createBioParticles();
+setActiveTab('home');
+});
+</script>
+</body>
+</html>
